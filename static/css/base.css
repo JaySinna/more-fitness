@@ -83,7 +83,7 @@ header, #main-nav {
 	top: 0;
 	left: 0;
 	position: fixed;
-	background: white;
+	background: #DFFF00;
 	z-index: -1;
 }
 
