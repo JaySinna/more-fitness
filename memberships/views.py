@@ -8,9 +8,12 @@ def membership_list(request):
     """ A view to show all membership details """
 
     memberships = Membership.objects.all()
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    subscription = Subscription.objects.filter(user_profile=user_profile, is_active=True).first()
 
     context = {
         'memberships': memberships,
+        'subscription': subscription,
     }
 
     return render(request, 'memberships/membership_list.html', context)
