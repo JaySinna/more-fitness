@@ -27,3 +27,33 @@ class Subscription(models.Model):
 
     def __str__(self):
         return f"{self.user_profile.user.username} - {self.membership.name}"
+
+
+class ExercisePlan(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    membership = models.ForeignKey(
+        Membership,
+        on_delete=models.CASCADE,
+        related_name='exercise_plans'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class NutritionPlan(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    membership = models.ForeignKey(
+        Membership,
+        on_delete=models.CASCADE,
+        related_name='nutrition_plans'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
