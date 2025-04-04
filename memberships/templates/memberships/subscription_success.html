@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Subscription Successful</h1>
+    <p>Thank you for subscribing! You now have access to member-only content.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary mt-3">Return to Home</a>
+  </div>
+{% endblock %}

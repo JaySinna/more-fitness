@@ -23,9 +23,20 @@ def subscribe_to_membership(request, membership_id):
     membership = get_object_or_404(Membership, id=membership_id)
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
-    subscription, created = Subscription.objects.get_or_create(user_profile=user_profile)
-    subscription.membership = membership
-    subscription.is_active = True
-    subscription.save()
+    subscription, created = Subscription.objects.get_or_create(
+        user_profile=user_profile,
+        defaults={'membership': membership}
+    )
 
-    return redirect('membership_list')
+    if not created:
+        subscription.membership = membership
+        subscription.is_active = True
+        subscription.save()
+
+    return redirect('subscription_success')
+
+
+def subscription_success(request):
+    """A view to confirm successful subscription."""
+
+    return render(request, 'memberships/subscription_success.html')

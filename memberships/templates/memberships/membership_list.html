@@ -18,7 +18,7 @@
               <h3>{{ membership.name }}</h3>
               <p>{{ membership.description }}</p>
               <p>Price: ${{ membership.price }}</p>
-              <a href="#">Subscribe</a>
+              <a href="{% url 'subscribe_to_membership' membership.id %}">Subscribe</a>
           </li>
       {% endfor %}
   </ul>
