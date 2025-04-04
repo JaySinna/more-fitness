@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+  <h1>Available Memberships</h1>
+
+  <ul>
+      {% for membership in memberships %}
+          <li>
+              <h3>{{ membership.name }}</h3>
+              <p>{{ membership.description }}</p>
+              <p>Price: ${{ membership.price }}</p>
+              <a href="#">Subscribe</a>
+          </li>
+      {% endfor %}
+  </ul>
+{% endblock %}
