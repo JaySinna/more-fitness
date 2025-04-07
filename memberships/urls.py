@@ -10,4 +10,6 @@ urlpatterns = [
     path('access-denied/', views.access_denied, name='access_denied'),
     path('exercise-plans/<int:pk>/', views.exercise_plan_detail, name='exercise_plan_detail'),
     path('nutrition-plans/<int:pk>/', views.nutrition_plan_detail, name='nutrition_plan_detail'),
+    path('my-membership/', views.my_membership, name='my_membership'),
+    path('membership-benefits/', views.membership_benefits, name='membership_benefits'),
 ]

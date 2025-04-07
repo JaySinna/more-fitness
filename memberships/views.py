@@ -127,3 +127,29 @@ def nutrition_plan_detail(request, pk):
             return render(request, 'memberships/access_denied.html')
     else:
         return render(request, 'memberships/access_denied.html')
+
+
+def membership_benefits(request):
+    """ Display the benefits of each membership. """
+    
+    memberships = Membership.objects.all()
+    context = {
+        'memberships': memberships,
+    }
+    return render(request, 'memberships/membership_benefits.html', context)
+
+
+@login_required
+def my_membership(request):
+    """ Display the current subscription of the logged-in user. """
+
+    user_profile = request.user.userprofile
+    subscription = getattr(user_profile, 'subscription', None)
+
+    if subscription and subscription.is_active:
+        context = {
+            'subscription': subscription,
+        }
+        return render(request, 'memberships/my_membership.html', context)
+    else:
+        return render(request, 'memberships/access_denied.html')

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>My Current Membership</h1>
+        
+        {% if subscription %}
+            <div class="alert alert-info">
+                You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
+                <p><strong>Description:</strong> {{ subscription.membership.description }}</p>
+                <p><strong>Benefits:</strong> {{ subscription.membership.benefits }}</p>
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                You do not have an active subscription. Please <a href="{% url 'membership_list' %}">become a member</a>.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

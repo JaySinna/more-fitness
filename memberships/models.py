@@ -14,6 +14,7 @@ class Membership(models.Model):
     name = models.CharField(max_length=50, choices=MEMBERSHIP_CHOICES)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    benefits = models.TextField(default="No benefits listed", help_text="Comma separated list of membership benefits")
 
     def __str__(self):
         return self.name

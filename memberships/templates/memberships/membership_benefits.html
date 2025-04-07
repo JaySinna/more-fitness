@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Membership Benefits</h1>
+
+    <div class="row">
+        {% for membership in memberships %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ membership.name }}</h4>
+                        <p class="card-text">{{ membership.description }}</p>
+                        <p><strong>Price:</strong> £{{ membership.price }} / month</p>
+                        
+                        <p><strong>Benefits:</strong></p>
+                        {% if membership.benefits and membership.benefits != "No benefits listed" %}
+                            <p>{{ membership.benefits }}</p>
+                        {% else %}
+                            <p>No benefits available for this membership.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
