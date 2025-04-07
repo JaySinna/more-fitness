@@ -53,7 +53,11 @@ def exercise_plans(request):
     subscription = getattr(user_profile, 'subscription', None)
 
     if subscription and subscription.is_active:
-        plans = ExercisePlan.objects.filter(membership=subscription.membership)
+        if subscription.membership.name.lower() == 'premium':
+            plans = ExercisePlan.objects.all()
+        else:
+            plans = ExercisePlan.objects.filter(membership__name__iexact='basic')
+
         context = {
             'plans': plans,
         }
@@ -70,7 +74,11 @@ def nutrition_plans(request):
     subscription = getattr(user_profile, 'subscription', None)
 
     if subscription and subscription.is_active:
-        plans = NutritionPlan.objects.filter(membership=subscription.membership)
+        if subscription.membership.name.lower() == 'premium':
+            plans = NutritionPlan.objects.all()
+        else:
+            plans = NutritionPlan.objects.filter(membership__name__iexact='basic')
+
         context = {
             'plans': plans,
         }
