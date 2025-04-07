@@ -48,5 +48,11 @@
             </div>
         {% endfor %}
     </div>
+
+    <!-- Buttons to navigate to exercise and nutrition plans -->
+    <div class="mt-4 text-center">
+        <a href="{% url 'exercise_plans' %}" class="btn btn-success mr-2">My Exercise Plans</a>
+        <a href="{% url 'nutrition_plans' %}" class="btn btn-success">My Nutrition Plans</a>
+    </div>
 </div>
 {% endblock %}
