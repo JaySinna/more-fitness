@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ plan.name }}</h1>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">{{ plan.description }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            Published on: {{ plan.created_at|date:"F j, Y" }}
+        </div>
+    </div>
+    <a href="{% url 'exercise_plans' %}" class="btn btn-secondary mt-4">Back to Exercise Plans</a>
+</div>
+{% endblock %}

@@ -8,4 +8,6 @@ urlpatterns = [
     path('exercise-plans/', views.exercise_plans, name='exercise_plans'),
     path('nutrition-plans/', views.nutrition_plans, name='nutrition_plans'),
     path('access-denied/', views.access_denied, name='access_denied'),
+    path('exercise-plans/<int:pk>/', views.exercise_plan_detail, name='exercise_plan_detail'),
+    path('nutrition-plans/<int:pk>/', views.nutrition_plan_detail, name='nutrition_plan_detail'),
 ]

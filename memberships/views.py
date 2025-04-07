@@ -91,3 +91,33 @@ def access_denied(request):
     """ Deny access to fitness plans to users without an active subscription. """
 
     return render(request, 'memberships/access_denied.html')
+
+
+@login_required
+def exercise_plan_detail(request, pk):
+    """ Show detail for a single exercise plan if user's membership allows access. """
+
+    plan = get_object_or_404(ExercisePlan, pk=pk)
+    user_profile = request.user.userprofile
+    subscription = getattr(user_profile, 'subscription', None)
+
+    if subscription and subscription.is_active and plan.membership == subscription.membership:
+        context = {'plan': plan}
+        return render(request, 'memberships/exercise_plan_detail.html', context)
+    else:
+        return render(request, 'memberships/access_denied.html')
+
+
+@login_required
+def nutrition_plan_detail(request, pk):
+    """ Show detail for a single nutrition plan if user's membership allows access. """
+    
+    plan = get_object_or_404(NutritionPlan, pk=pk)
+    user_profile = request.user.userprofile
+    subscription = getattr(user_profile, 'subscription', None)
+
+    if subscription and subscription.is_active and plan.membership == subscription.membership:
+        context = {'plan': plan}
+        return render(request, 'memberships/nutrition_plan_detail.html', context)
+    else:
+        return render(request, 'memberships/access_denied.html')
