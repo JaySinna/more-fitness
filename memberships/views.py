@@ -58,9 +58,9 @@ def exercise_plans(request):
 
     if subscription and subscription.is_active:
         if subscription.membership.name.lower() == 'premium':
-            plans = ExercisePlan.objects.all()
+            plans = ExercisePlan.objects.filter(is_sample=False)
         else:
-            plans = ExercisePlan.objects.filter(membership__name__iexact='basic')
+            plans = ExercisePlan.objects.filter(membership__name__iexact='basic', is_sample=False)
 
         context = {
             'plans': plans,
@@ -79,9 +79,9 @@ def nutrition_plans(request):
 
     if subscription and subscription.is_active:
         if subscription.membership.name.lower() == 'premium':
-            plans = NutritionPlan.objects.all()
+            plans = NutritionPlan.objects.filter(is_sample=False)
         else:
-            plans = NutritionPlan.objects.filter(membership__name__iexact='basic')
+            plans = NutritionPlan.objects.filter(membership__name__iexact='basic', is_sample=False)
 
         context = {
             'plans': plans,
