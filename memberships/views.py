@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
 from .models import Membership, Subscription, ExercisePlan, NutritionPlan
 from profiles.models import UserProfile
 
@@ -164,11 +165,16 @@ def my_membership(request):
     user_profile = request.user.userprofile
     subscription = getattr(user_profile, 'subscription', None)
 
+    if subscription and subscription.is_active:
+        active_subscription = subscription
+    else:
+        active_subscription = None
+
     memberships = Membership.objects.all()
 
     context = {
         'memberships': memberships,
-        'subscription': subscription,
+        'subscription': active_subscription,
     }
 
     return render(request, 'memberships/my_membership.html', context)
@@ -185,3 +191,21 @@ def sample_plans(request):
         'sample_nutrition_plans': sample_nutrition_plans,
     }
     return render(request, 'memberships/sample_plans.html', context)
+
+
+@login_required
+def unsubscribe(request, membership_id):
+    """ Allow a logged-in user to unsubscribe from a membership. """
+    
+    user_profile = request.user.userprofile
+    subscription = user_profile.subscription
+    
+    membership = get_object_or_404(Membership, id=membership_id)
+    
+    if subscription and subscription.membership == membership:
+        subscription.is_active = False
+        subscription.save()
+        
+        messages.success(request, 'You have unsubscribed from your membership.')
+
+    return redirect('my_membership')
