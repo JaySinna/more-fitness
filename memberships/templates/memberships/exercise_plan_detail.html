@@ -20,6 +20,11 @@
             Published on: {{ plan.created_at|date:"F j, Y" }}
         </div>
     </div>
-    <a href="{% url 'exercise_plans' %}" class="btn btn-secondary mt-4">Back to Exercise Plans</a>
+    
+    {% if user.is_authenticated %}
+        <a href="{% url 'exercise_plans' %}" class="btn btn-secondary mt-4">Back to Exercise Plans</a>
+    {% else %}
+        <a href="{% url 'sample_plans' %}" class="btn btn-secondary mt-4">Back to Sample Plans</a>
+    {% endif %}
 </div>
 {% endblock %}
