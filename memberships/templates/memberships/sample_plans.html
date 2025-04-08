@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Centered 'Sample Plans' header -->
+    <h1 class="mb-4 text-center">Sample Plans</h1>
+
+    <div class="row justify-content-center">
+        <!-- Sample Exercise Plans Column -->
+        <div class="col-md-5">
+            <!-- Centered 'Sample Exercise Plans' header -->
+            <h2 class="text-center">Sample Exercise Plans</h2>
+            {% if sample_exercise_plans %}
+                <div class="row">
+                    {% for plan in sample_exercise_plans %}
+                        <div class="col-md-12 mb-4 d-flex"> <!-- d-flex ensures uniformity of card size -->
+                            <div class="card h-100 w-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ plan.name }}</h5>
+                                    <p class="card-text">{{ plan.description }}</p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Published on: {{ plan.created_at|date:"F j, Y" }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No sample exercise plans available at the moment.</p>
+            {% endif %}
+        </div>
+
+        <!-- Add a gap between the middle two columns -->
+        <div class="col-md-1"></div> <!-- This will create the space between the two columns -->
+
+        <!-- Sample Nutrition Plans Column -->
+        <div class="col-md-5">
+            <!-- Centered 'Sample Nutrition Plans' header -->
+            <h2 class="text-center">Sample Nutrition Plans</h2>
+            {% if sample_nutrition_plans %}
+                <div class="row">
+                    {% for plan in sample_nutrition_plans %}
+                        <div class="col-md-12 mb-4 d-flex"> <!-- d-flex ensures uniformity of card size -->
+                            <div class="card h-100 w-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ plan.name }}</h5>
+                                    <p class="card-text">{{ plan.description }}</p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Published on: {{ plan.created_at|date:"F j, Y" }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No sample nutrition plans available at the moment.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Button to navigate back to Memberships -->
+    <div class="mt-4 text-center">
+        <a href="{% url 'membership_list' %}" class="btn btn-primary">Back to Memberships</a>
+    </div>
+</div>
+{% endblock %}

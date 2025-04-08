@@ -40,6 +40,7 @@ class ExercisePlan(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_sample = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -55,6 +56,7 @@ class NutritionPlan(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_sample = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

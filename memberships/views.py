@@ -157,3 +157,16 @@ def my_membership(request):
         return render(request, 'memberships/my_membership.html', context)
     else:
         return render(request, 'memberships/access_denied.html')
+    
+
+def sample_plans(request):
+    """ Show example exercise and nutrition plans to non-members. """
+
+    sample_exercise_plans = ExercisePlan.objects.filter(is_sample=True)
+    sample_nutrition_plans = NutritionPlan.objects.filter(is_sample=True)
+
+    context = {
+        'sample_exercise_plans': sample_exercise_plans,
+        'sample_nutrition_plans': sample_nutrition_plans,
+    }
+    return render(request, 'memberships/sample_plans.html', context)
