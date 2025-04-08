@@ -4,12 +4,16 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Membership, Subscription, ExercisePlan, NutritionPlan
 from profiles.models import UserProfile
 
+
 def membership_list(request):
     """ A view to show all membership details """
 
     memberships = Membership.objects.all()
-    user_profile = get_object_or_404(UserProfile, user=request.user)
-    subscription = Subscription.objects.filter(user_profile=user_profile, is_active=True).first()
+    subscription = None
+
+    if request.user.is_authenticated:
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+        subscription = Subscription.objects.filter(user_profile=user_profile, is_active=True).first()
 
     context = {
         'memberships': memberships,
