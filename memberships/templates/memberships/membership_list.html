@@ -22,6 +22,8 @@
     {% else %}
         <div class="alert alert-warning">
             You are not currently subscribed to any membership.
+            <a href="{% url 'account_login' %}?next={{ request.path }}">Sign in</a> or 
+            <a href="{% url 'account_signup' %}?next={{ request.path }}">create an account</a> to subscribe.
         </div>
     {% endif %}
 
