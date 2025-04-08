@@ -164,13 +164,14 @@ def my_membership(request):
     user_profile = request.user.userprofile
     subscription = getattr(user_profile, 'subscription', None)
 
-    if subscription and subscription.is_active:
-        context = {
-            'subscription': subscription,
-        }
-        return render(request, 'memberships/my_membership.html', context)
-    else:
-        return render(request, 'memberships/access_denied.html')
+    memberships = Membership.objects.all()
+
+    context = {
+        'memberships': memberships,
+        'subscription': subscription,
+    }
+
+    return render(request, 'memberships/my_membership.html', context)
     
 
 def sample_plans(request):

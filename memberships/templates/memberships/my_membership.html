@@ -10,19 +10,49 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1>My Current Membership</h1>
-        
-        {% if subscription %}
-            <div class="alert alert-info">
-                You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
-                <p><strong>Description:</strong> {{ subscription.membership.description }}</p>
-                <p><strong>Benefits:</strong> {{ subscription.membership.benefits }}</p>
+<div class="container mt-5">
+    <h1 class="mb-4">My Membership</h1>
+
+    <!-- Show current membership -->
+    {% if subscription %}
+        <div class="alert alert-info">
+            You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            You are not currently subscribed to any membership.
+        </div>
+    {% endif %}
+
+    <!-- List all memberships -->
+    <div class="row">
+        {% for membership in memberships %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ membership.name }}</h4>
+                        <p class="card-text">{{ membership.description }}</p>
+                        <p><strong>Price:</strong> £{{ membership.price }} / month</p>
+
+                        {% if subscription and subscription.membership.id == membership.id %}
+                            <button class="btn btn-secondary" disabled>
+                                Currently Subscribed
+                            </button>
+                        {% else %}
+                            <a href="{% url 'subscribe_to_membership' membership.id %}" class="btn btn-primary">
+                                Subscribe
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-        {% else %}
-            <div class="alert alert-warning">
-                You do not have an active subscription. Please <a href="{% url 'membership_list' %}">become a member</a>.
-            </div>
-        {% endif %}
+        {% endfor %}
     </div>
+
+    <!-- Buttons for exercise and nutrition plans -->
+    <div class="mt-4 text-center">
+        <a href="{% url 'exercise_plans' %}" class="btn btn-success mr-2">My Exercise Plans</a>
+        <a href="{% url 'nutrition_plans' %}" class="btn btn-success">My Nutrition Plans</a>
+    </div>
+</div>
 {% endblock %}
