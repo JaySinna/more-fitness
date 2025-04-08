@@ -39,7 +39,7 @@
                             <a class="btn btn-secondary disabled" href="#" tabindex="-1" role="button" aria-disabled="true">
                                 Currently Subscribed
                             </a>
-                            <a href="{% url 'unsubscribe' membership.id %}" class="btn btn-danger ml-2">
+                            <a href="{% url 'confirm_unsubscribe' membership.id %}" class="btn btn-danger ml-2">
                                 Unsubscribe
                             </a>
                         {% else %}

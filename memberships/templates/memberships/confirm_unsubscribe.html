@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container mt-5 text-center">
+    <h1 class="mb-4">Confirm Unsubscription</h1>
+    <p>Are you sure you want to unsubscribe from the <strong>{{ membership.name }}</strong> membership?</p>
+
+    <form method="POST" action="{% url 'unsubscribe' membership.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Unsubscribe</button>
+        <a href="{% url 'my_membership' %}" class="btn btn-secondary ml-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

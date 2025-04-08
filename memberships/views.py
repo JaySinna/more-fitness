@@ -209,3 +209,16 @@ def unsubscribe(request, membership_id):
         messages.success(request, 'You have unsubscribed from your membership.')
 
     return redirect('my_membership')
+
+
+@login_required
+def confirm_unsubscribe(request, membership_id):
+    """ Show confirmation page before unsubscribing """
+    
+    membership = get_object_or_404(Membership, id=membership_id)
+
+    context = {
+        'membership': membership,
+    }
+
+    return render(request, 'memberships/confirm_unsubscribe.html', context)
