@@ -14,6 +14,7 @@
 <div class="container mt-5 text-center">
     <h1 class="mb-4">Confirm Unsubscription</h1>
     <p>Are you sure you want to unsubscribe from the <strong>{{ membership.name }}</strong> membership?</p>
+    <p>You will lose: <em>{{ membership.description }}</em></p>
 
     <form method="POST" action="{% url 'unsubscribe' membership.id %}">
         {% csrf_token %}
