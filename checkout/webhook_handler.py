@@ -164,3 +164,36 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
+    
+    def handle_subscription_created(self, event):
+        """
+        Handle the customer.subscription.created webhook from Stripe
+        """
+        subscription = event['data']['object']
+        customer_id = subscription['customer']
+        subscription_id = subscription['id']
+        return HttpResponse(content=f'Subscription created: {subscription_id}', status=200)
+
+    def handle_subscription_payment_succeeded(self, event):
+        """
+        Handle the invoice.payment_succeeded webhook from Stripe
+        """
+        invoice = event['data']['object']
+        subscription_id = invoice['subscription']
+        return HttpResponse(content=f'Payment succeeded for subscription: {subscription_id}', status=200)
+
+    def handle_subscription_payment_failed(self, event):
+        """
+        Handle the invoice.payment_failed webhook from Stripe
+        """
+        invoice = event['data']['object']
+        subscription_id = invoice['subscription']
+        return HttpResponse(content=f'Payment failed for subscription: {subscription_id}', status=200)
+
+    def handle_subscription_cancelled(self, event):
+        """
+        Handle the customer.subscription.deleted webhook from Stripe
+        """
+        subscription = event['data']['object']
+        subscription_id = subscription['id']
+        return HttpResponse(content=f'Subscription cancelled: {subscription_id}', status=200)
