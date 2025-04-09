@@ -43,5 +43,9 @@
     {% else %}
         <p>No exercise plans available for your membership yet.</p>
     {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{% url 'my_membership' %}" class="btn btn-secondary">My Membership</a>
+    </div>
 </div>
 {% endblock %}
