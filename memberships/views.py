@@ -41,13 +41,20 @@ def subscribe_to_membership(request, membership_id):
         subscription.is_active = True
         subscription.save()
 
-    return redirect('subscription_success')
+    return redirect('subscription_success', membership_id=membership.id)
 
 
-def subscription_success(request):
+@login_required
+def subscription_success(request, membership_id):
     """A view to confirm successful subscription."""
 
-    return render(request, 'memberships/subscription_success.html')
+    membership = get_object_or_404(Membership, id=membership_id)
+
+    context = {
+        'membership': membership,
+    }
+
+    return render(request, 'memberships/subscription_success.html', context)
 
 
 @login_required

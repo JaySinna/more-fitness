@@ -11,9 +11,15 @@
 
 {% block content %}
 <div class="overlay"></div>
-  <div class="container">
-    <h1>Subscription Successful</h1>
-    <p>Thank you for subscribing! You now have access to member-only content.</p>
-    <a href="{% url 'home' %}" class="btn btn-primary mt-3">Return to Home</a>
-  </div>
+<div class="container mt-5 text-center">
+    <h1 class="mb-4">Subscription Successful</h1>
+    <p>
+        Thank you for subscribing to the <strong>{{ membership.name }}</strong> membership!
+    </p>
+    <p>
+        You now have: <em>{{ membership.description }}</em>
+    </p>
+
+    <a href="{% url 'my_membership' %}" class="btn btn-primary mt-4">Go to My Membership</a>
+</div>
 {% endblock %}
