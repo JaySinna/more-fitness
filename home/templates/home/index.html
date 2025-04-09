@@ -18,16 +18,18 @@
                     The place for all your fitness needs!
                 </h1>
                 <div class="my-5">
-                    <h4 class="d-inline-block mr-3 mb-0">
-                        <a href="{% url 'products' %}" class="shop-now-button btn btn-lg text-uppercase py-3">Shop Now</a>
-                    </h4>
-                    <h4 class="d-inline-block mb-0">
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'my_membership' %}" class="shop-now-button btn btn-lg text-uppercase py-3">My Membership</a>
-                        {% else %}
-                            <a href="{% url 'membership_list' %}" class="shop-now-button btn btn-lg text-uppercase py-3">Memberships</a>
-                        {% endif %}
-                    </h4>
+                    <div class="d-flex flex-wrap">
+                        <h4 class="mr-3 mb-3">
+                            <a href="{% url 'products' %}" class="shop-now-button btn btn-lg text-uppercase py-3">Shop Now</a>
+                        </h4>
+                        <h4 class="mb-3">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'my_membership' %}" class="shop-now-button btn btn-lg text-uppercase py-3">My Membership</a>
+                            {% else %}
+                                <a href="{% url 'membership_list' %}" class="shop-now-button btn btn-lg text-uppercase py-3">Memberships</a>
+                            {% endif %}
+                        </h4>
+                    </div>
                 </div>
             </div>
         </div>
