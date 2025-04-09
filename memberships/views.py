@@ -41,6 +41,8 @@ def subscribe_to_membership(request, membership_id):
         subscription.is_active = True
         subscription.save()
 
+    messages.success(request, f"You have successfully subscribed to the {membership.name} membership! Enjoy your benefits: {membership.description}")
+
     return redirect('subscription_success', membership_id=membership.id)
 
 

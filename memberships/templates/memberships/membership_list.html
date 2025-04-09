@@ -16,15 +16,19 @@
 
     <!-- Show current membership -->
     {% if subscription %}
-        <div class="alert alert-info">
-            You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
-        </div>
+    <div class="alert alert-info">
+        You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
+    </div>
     {% else %}
-        <div class="alert alert-warning">
+    <div class="alert alert-warning">
+        {% if user.is_authenticated %}
+            You are not currently subscribed to any membership.
+        {% else %}
             You are not currently subscribed to any membership.
             <a href="{% url 'account_login' %}?next={{ request.path }}">Sign in</a> or 
             <a href="{% url 'account_signup' %}?next={{ request.path }}">create an account</a> to subscribe.
-        </div>
+        {% endif %}
+    </div>
     {% endif %}
 
     <!-- List all memberships -->
