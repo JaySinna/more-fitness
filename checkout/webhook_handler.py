@@ -172,7 +172,30 @@ class StripeWH_Handler:
         subscription = event['data']['object']
         customer_id = subscription['customer']
         subscription_id = subscription['id']
-        return HttpResponse(content=f'Subscription created: {subscription_id}', status=200)
+
+        try:
+            customer = stripe.Customer.retrieve(customer_id)
+            username = customer.metadata.get('username')
+
+            if username:
+                user = User.objects.get(username=username)
+                profile = user.userprofile
+                profile.stripe_customer_id = customer_id
+                profile.stripe_subscription_id = subscription_id
+                profile.is_member = True
+                profile.save()
+
+                return HttpResponse(
+                    content=f'Subscription created and user profile updated: {subscription_id}',
+                    status=200
+                )
+            else:
+                return HttpResponse(
+                    content='No username metadata found on customer.',
+                    status=400
+                )
+        except Exception as e:
+            return HttpResponse(content=f'Error handling subscription.created: {e}', status=500)
 
     def handle_subscription_payment_succeeded(self, event):
         """
@@ -180,7 +203,23 @@ class StripeWH_Handler:
         """
         invoice = event['data']['object']
         subscription_id = invoice['subscription']
-        return HttpResponse(content=f'Payment succeeded for subscription: {subscription_id}', status=200)
+        customer_id = invoice['customer']
+        amount_paid = invoice['amount_paid'] / 100
+    
+        try:
+            profile = UserProfile.objects.get(stripe_customer_id=customer_id)
+            profile.is_member = True
+            profile.save()
+
+            return HttpResponse(
+                content=f'Successful payment for subscription {subscription_id}, membership updated.',
+                status=200
+            )
+        except UserProfile.DoesNotExist:
+            return HttpResponse(
+                content=f'No user profile found for customer {customer_id}.',
+                status=404
+            )
 
     def handle_subscription_payment_failed(self, event):
         """
@@ -188,12 +227,61 @@ class StripeWH_Handler:
         """
         invoice = event['data']['object']
         subscription_id = invoice['subscription']
-        return HttpResponse(content=f'Payment failed for subscription: {subscription_id}', status=200)
+        customer_id = invoice['customer']
+    
+        try:
+            profile = UserProfile.objects.get(stripe_customer_id=customer_id)
+            profile.is_member = False
+            profile.save()
+
+            self._send_payment_failure_email(profile)
+
+            return HttpResponse(
+                content=f'Payment failed for subscription {subscription_id}, membership flagged as inactive.',
+                status=200
+            )
+        except UserProfile.DoesNotExist:
+            return HttpResponse(
+                content=f'No user profile found for customer {customer_id}.',
+                status=404
+            )
+    
+    def _send_payment_failure_email(self, profile):
+        """
+        Send a payment failure notification email to the user
+        """
+        subject = 'Payment Failed for Your Subscription'
+        body = f'Dear {profile.user.username},\n\n' \
+            'We were unable to process your subscription payment. Please update your payment information ' \
+            'to continue enjoying your membership benefits.\n\n' \
+            'If you have any questions, feel free to contact our support team.'
+    
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [profile.user.email]
+        )
 
     def handle_subscription_cancelled(self, event):
         """
         Handle the customer.subscription.deleted webhook from Stripe
         """
         subscription = event['data']['object']
+        customer_id = subscription['customer']
         subscription_id = subscription['id']
-        return HttpResponse(content=f'Subscription cancelled: {subscription_id}', status=200)
+    
+        try:
+            profile = UserProfile.objects.get(stripe_customer_id=customer_id)
+            profile.is_member = False
+            profile.save()
+
+            return HttpResponse(
+                content=f'Subscription cancelled: {subscription_id}, user membership updated.',
+                status=200
+            )
+        except UserProfile.DoesNotExist:
+            return HttpResponse(
+                content=f'No user profile found for customer {customer_id}.',
+                status=404
+            )
