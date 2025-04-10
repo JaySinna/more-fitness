@@ -6,7 +6,6 @@ from .models import Membership, Subscription, ExercisePlan, NutritionPlan
 from profiles.models import UserProfile
 import stripe
 from django.conf import settings
-from django.http import JsonResponse
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 
@@ -51,6 +50,10 @@ def subscribe_to_membership(request, membership_id):
                 'quantity': 1,
             }],
             customer_email=request.user.email,
+            metadata={
+                'username': request.user.username,
+                'membership_id': str(membership.id),
+            },
             success_url=request.build_absolute_uri(
                 reverse('subscription_success', args=[membership.id])
             ),
@@ -191,19 +194,12 @@ def membership_benefits(request):
 def my_membership(request):
     """ Display the current subscription of the logged-in user. """
 
-    user_profile = request.user.userprofile
-    subscription = getattr(user_profile, 'subscription', None)
-
-    if subscription and subscription.is_active:
-        active_subscription = subscription
-    else:
-        active_subscription = None
-
+    subscription = Subscription.objects.filter(user=request.user, is_active=True).first()
     memberships = Membership.objects.all()
 
     context = {
         'memberships': memberships,
-        'subscription': active_subscription,
+        'subscription': subscription,
     }
 
     return render(request, 'memberships/my_membership.html', context)

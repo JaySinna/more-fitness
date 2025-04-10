@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class Membership(models.Model):
@@ -22,13 +23,14 @@ class Membership(models.Model):
 
 
 class Subscription(models.Model):
-    user_profile = models.OneToOneField('profiles.UserProfile', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
+    stripe_subscription_id = models.CharField(max_length=255, null=True, blank=True)
     start_date = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.user_profile.user.username} - {self.membership.name}"
+        return f"{self.user.username} - {self.membership.name}"
 
 
 class ExercisePlan(models.Model):

@@ -6,6 +6,7 @@ from django.conf import settings
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
+from memberships.models import Membership, Subscription
 
 import json
 import time
@@ -172,30 +173,44 @@ class StripeWH_Handler:
         subscription = event['data']['object']
         customer_id = subscription['customer']
         subscription_id = subscription['id']
+        metadata = subscription.get('metadata', {})
+
+        username = metadata.get('username')
+        membership_id = metadata.get('membership_id')
+
+        if not username or not membership_id:
+            return HttpResponse(
+                content='Missing username or membership_id in metadata.',
+                status=400
+            )
 
         try:
-            customer = stripe.Customer.retrieve(customer_id)
-            username = customer.metadata.get('username')
+            user = User.objects.get(username=username)
+            membership = Membership.objects.get(id=membership_id)
 
-            if username:
-                user = User.objects.get(username=username)
-                profile = user.userprofile
-                profile.stripe_customer_id = customer_id
-                profile.stripe_subscription_id = subscription_id
-                profile.is_member = True
-                profile.save()
+            Subscription.objects.create(
+                user=user,
+                membership=membership,
+                stripe_subscription_id=subscription_id,
+                is_active=True
+            )
 
-                return HttpResponse(
-                    content=f'Subscription created and user profile updated: {subscription_id}',
-                    status=200
-                )
-            else:
-                return HttpResponse(
-                    content='No username metadata found on customer.',
-                    status=400
-                )
+            profile = user.userprofile
+            profile.stripe_customer_id = customer_id
+            profile.stripe_subscription_id = subscription_id
+            profile.is_member = True
+            profile.save()
+
+            return HttpResponse(
+                content=f'Subscription created and linked to user {username}',
+                status=200
+            )
+
         except Exception as e:
-            return HttpResponse(content=f'Error handling subscription.created: {e}', status=500)
+            return HttpResponse(
+                content=f'Error handling subscription.created: {str(e)}',
+                status=500
+            )
 
     def handle_subscription_payment_succeeded(self, event):
         """
