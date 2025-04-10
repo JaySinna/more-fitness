@@ -4,6 +4,14 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from .models import Membership, Subscription, ExercisePlan, NutritionPlan
 from profiles.models import UserProfile
+import stripe
+from django.conf import settings
+from django.http import JsonResponse
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def membership_list(request):
@@ -26,24 +34,36 @@ def membership_list(request):
 
 @login_required
 def subscribe_to_membership(request, membership_id):
-    """ Subscribe the logged-in user to the selected membership. """
+    """ Redirect user to Stripe Checkout for subscription payment. """
 
     membership = get_object_or_404(Membership, id=membership_id)
-    user_profile = get_object_or_404(UserProfile, user=request.user)
 
-    subscription, created = Subscription.objects.get_or_create(
-        user_profile=user_profile,
-        defaults={'membership': membership}
-    )
+    if not membership.stripe_price_id:
+        messages.error(request, "Stripe Price ID is not set for this membership.")
+        return redirect('membership_list')
 
-    if not created:
-        subscription.membership = membership
-        subscription.is_active = True
-        subscription.save()
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            mode='subscription',
+            line_items=[{
+                'price': membership.stripe_price_id,
+                'quantity': 1,
+            }],
+            customer_email=request.user.email,
+            success_url=request.build_absolute_uri(
+                reverse('subscription_success', args=[membership.id])
+            ),
+            cancel_url=request.build_absolute_uri(
+                reverse('membership_list')
+            ),
+        )
 
-    messages.success(request, f"You have successfully subscribed to the {membership.name} membership! Enjoy your benefits: {membership.description}")
+        return HttpResponseRedirect(checkout_session.url)
 
-    return redirect('subscription_success', membership_id=membership.id)
+    except Exception as e:
+        messages.error(request, f"Error creating checkout session: {str(e)}")
+        return redirect('membership_list')
 
 
 @login_required

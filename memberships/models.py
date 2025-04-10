@@ -15,6 +15,7 @@ class Membership(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     benefits = models.TextField(default="No benefits listed", help_text="Comma separated list of membership benefits")
+    stripe_price_id = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.name
