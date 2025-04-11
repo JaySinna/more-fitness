@@ -44,23 +44,22 @@ def subscribe_to_membership(request, membership_id):
     try:
         profile = request.user.userprofile
 
+        metadata = {
+            'username': request.user.username,
+            'membership_id': str(membership.id),
+        }
+
         if not profile.stripe_customer_id:
             customer = stripe.Customer.create(
                 email=request.user.email,
-                metadata={
-                    'username': request.user.username,
-                    'membership_id': str(membership.id),
-                }
+                metadata=metadata
             )
             profile.stripe_customer_id = customer.id
             profile.save()
         else:
-            customer = stripe.Customer.modify(
+            stripe.Customer.modify(
                 profile.stripe_customer_id,
-                metadata={
-                    'username': request.user.username,
-                    'membership_id': str(membership.id),
-                }
+                metadata=metadata
             )
 
         checkout_session = stripe.checkout.Session.create(
@@ -71,6 +70,7 @@ def subscribe_to_membership(request, membership_id):
                 'quantity': 1,
             }],
             customer=profile.stripe_customer_id,
+            metadata=metadata,
             success_url=request.build_absolute_uri(
                 reverse('subscription_success', args=[membership.id])
             ),
