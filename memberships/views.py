@@ -42,13 +42,26 @@ def subscribe_to_membership(request, membership_id):
         return redirect('membership_list')
 
     try:
-        stripe_customer = stripe.Customer.create(
-            email=request.user.email,
-            metadata={
-                'username': request.user.username,
-                'membership_id': str(membership.id),
-            }
-        )
+        profile = request.user.userprofile
+
+        if not profile.stripe_customer_id:
+            customer = stripe.Customer.create(
+                email=request.user.email,
+                metadata={
+                    'username': request.user.username,
+                    'membership_id': str(membership.id),
+                }
+            )
+            profile.stripe_customer_id = customer.id
+            profile.save()
+        else:
+            customer = stripe.Customer.modify(
+                profile.stripe_customer_id,
+                metadata={
+                    'username': request.user.username,
+                    'membership_id': str(membership.id),
+                }
+            )
 
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
@@ -57,7 +70,7 @@ def subscribe_to_membership(request, membership_id):
                 'price': membership.stripe_price_id,
                 'quantity': 1,
             }],
-            customer=stripe_customer.id,
+            customer=profile.stripe_customer_id,
             success_url=request.build_absolute_uri(
                 reverse('subscription_success', args=[membership.id])
             ),
