@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from .models import Order, OrderLineItem
 from products.models import Product
@@ -11,8 +12,12 @@ from memberships.models import Membership, Subscription
 
 import json
 import time
+import logging
 
 import stripe
+
+logger = logging.getLogger(__name__)
+
 
 class StripeWH_Handler:
     """Handle Stripe webhooks"""
@@ -330,6 +335,9 @@ class StripeWH_Handler:
         session = event['data']['object']
         metadata = session.get('metadata', {})
 
+        logger.debug("🔔 Webhook received: checkout.session.completed")
+        logger.debug(f"Metadata: {metadata}")
+
         customer_id = session.get('customer')
         subscription_id = session.get('subscription')
 
@@ -337,6 +345,7 @@ class StripeWH_Handler:
         membership_id = metadata.get('membership_id')
 
         if not username or not membership_id:
+            logger.error("❌ Missing username or membership_id in metadata.")
             return HttpResponse(
                 content='Missing metadata: username or membership_id',
                 status=400
@@ -352,6 +361,8 @@ class StripeWH_Handler:
 
             membership = Membership.objects.get(id=membership_id)
 
+            logger.debug(f"✅ Creating or updating subscription for user: {user}")
+
             Subscription.objects.update_or_create(
                 user=user,
                 defaults={
@@ -362,12 +373,15 @@ class StripeWH_Handler:
                 }
             )
 
+            logger.debug(f"🆕 Subscription {'created' if created else 'updated'}: {sub}")
+
             return HttpResponse(
                 content='Subscription created or updated successfully from checkout.session.completed',
                 status=200
             )
 
         except Exception as e:
+            logger.exception("💥 Exception in handle_checkout_session_completed")
             return HttpResponse(
                 content=f'Error in handle_checkout_session_completed: {str(e)}',
                 status=500
