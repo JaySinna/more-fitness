@@ -1,0 +1,1 @@
+web: gunicorn more_fitness.wsgi:application
