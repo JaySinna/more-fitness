@@ -352,15 +352,18 @@ class StripeWH_Handler:
 
             membership = Membership.objects.get(id=membership_id)
 
-            Subscription.objects.create(
+            Subscription.objects.update_or_create(
                 user=user,
-                membership=membership,
-                stripe_subscription_id=subscription_id,
-                is_active=True,
+                defaults={
+                    'membership': membership,
+                    'stripe_subscription_id': subscription_id,
+                    'is_active': True,
+                    'start_date': timezone.now(),
+                }
             )
 
             return HttpResponse(
-                content='Subscription created successfully from checkout.session.completed',
+                content='Subscription created or updated successfully from checkout.session.completed',
                 status=200
             )
 

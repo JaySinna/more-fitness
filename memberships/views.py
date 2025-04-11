@@ -238,17 +238,35 @@ def sample_plans(request):
 @login_required
 def unsubscribe(request, membership_id):
     """ Allow a logged-in user to unsubscribe from a membership. """
-    
+
     user_profile = request.user.userprofile
-    subscription = user_profile.subscription
-    
     membership = get_object_or_404(Membership, id=membership_id)
-    
-    if subscription and subscription.membership == membership:
-        subscription.is_active = False
-        subscription.save()
-        
-        messages.success(request, 'You have unsubscribed from your membership.')
+
+    try:
+        subscription = Subscription.objects.get(
+            user=request.user,
+            membership=membership,
+            is_active=True
+        )
+    except Subscription.DoesNotExist:
+        messages.error(request, 'No active subscription found for this membership.')
+        return redirect('my_membership')
+
+    if user_profile.stripe_subscription_id:
+        try:
+            stripe.Subscription.delete(user_profile.stripe_subscription_id)
+        except Exception as e:
+            messages.error(request, f'Error canceling subscription on Stripe: {str(e)}')
+            return redirect('my_membership')
+
+    subscription.is_active = False
+    subscription.save()
+
+    user_profile.is_member = False
+    user_profile.stripe_subscription_id = None
+    user_profile.save()
+
+    messages.success(request, 'You have unsubscribed from your membership.')
 
     return redirect('my_membership')
 
