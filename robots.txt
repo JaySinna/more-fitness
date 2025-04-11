@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /accounts/
+Sitemap: https://more-fitness-jay-01f84b915adb.herokuapp.com/sitemap.xml
