@@ -300,3 +300,50 @@ class StripeWH_Handler:
                 content=f'No user profile found for customer {customer_id}.',
                 status=404
             )
+        
+
+    def handle_checkout_session_completed(self, event):
+        """
+        Handle the checkout.session.completed webhook from Stripe
+        """
+        session = event['data']['object']
+        customer_id = session.get('customer')
+        subscription_id = session.get('subscription')
+        metadata = session.get('metadata', {})
+
+        username = metadata.get('username')
+        membership_id = metadata.get('membership_id')
+
+        if not username or not membership_id:
+            return HttpResponse(
+                content='Missing metadata: username or membership_id',
+                status=400
+            )
+
+        try:
+            user = User.objects.get(username=username)
+            profile = user.userprofile
+            profile.stripe_customer_id = customer_id
+            profile.stripe_subscription_id = subscription_id
+            profile.is_member = True
+            profile.save()
+
+            membership = Membership.objects.get(id=membership_id)
+
+            Subscription.objects.create(
+                user=user,
+                membership=membership,
+                stripe_subscription_id=subscription_id,
+                is_active=True,
+            )
+
+            return HttpResponse(
+                content='Subscription created successfully from checkout.session.completed',
+                status=200
+            )
+
+        except Exception as e:
+            return HttpResponse(
+                content=f'Error in handle_checkout_session_completed: {str(e)}',
+                status=500
+            )

@@ -43,6 +43,7 @@ def webhook(request):
     event_map = {
         'payment_intent.succeeded': handler.handle_payment_intent_succeeded,
         'payment_intent.payment_failed': handler.handle_payment_intent_payment_failed,
+        'checkout.session.completed': handler.handle_checkout_session_completed,
         'customer.subscription.created': handler.handle_subscription_created,
         'invoice.payment_succeeded': handler.handle_subscription_payment_succeeded,
         'invoice.payment_failed': handler.handle_subscription_payment_failed,
