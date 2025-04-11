@@ -327,10 +327,8 @@ class StripeWH_Handler:
         """
         Handle the checkout.session.completed webhook from Stripe
         """
-        print("🎯 Webhook endpoint was hit!")
         session = event['data']['object']
         metadata = session.get('metadata', {})
-        print("DEBUG metadata:", metadata)
 
         customer_id = session.get('customer')
         subscription_id = session.get('subscription')
@@ -339,7 +337,6 @@ class StripeWH_Handler:
         membership_id = metadata.get('membership_id')
 
         if not username or not membership_id:
-            print("❌ Missing metadata in checkout.session.completed")
             return HttpResponse(
                 content='Missing metadata: username or membership_id',
                 status=400
@@ -362,14 +359,12 @@ class StripeWH_Handler:
                 is_active=True,
             )
 
-            print(f"✅ Subscription created for {username} with membership {membership_id}")
             return HttpResponse(
                 content='Subscription created successfully from checkout.session.completed',
                 status=200
             )
 
         except Exception as e:
-            print("💥 Error in handle_checkout_session_completed:", str(e))
             return HttpResponse(
                 content=f'Error in handle_checkout_session_completed: {str(e)}',
                 status=500
