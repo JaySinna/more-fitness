@@ -1,0 +1,396 @@
+[
+    {
+        "model":"products.product",
+        "pk":1,
+        "fields":{
+            "category":2,
+            "sku":"GYM-T-BLACK",
+            "name":"Black Gym T-Shirt",
+            "description":"Black gym t-shirt",
+            "has_sizes":false,
+            "price":"10.00",
+            "rating":"4.00",
+            "image_url":null,
+            "image":"black-gym-top.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":2,
+        "fields":{
+            "category":2,
+            "sku":"GYM-T-YELLO",
+            "name":"Yellow Gym T-Shirt",
+            "description":"Yellow gym t-shirt",
+            "has_sizes":true,
+            "price":"30.00",
+            "rating":"4.00",
+            "image_url":null,
+            "image":"yellow-gym-top.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":3,
+        "fields":{
+            "category":2,
+            "sku":"GYM-T-RED",
+            "name":"Red Gym T-Shirt",
+            "description":"Red gym t-shirt",
+            "has_sizes":true,
+            "price":"40.00",
+            "rating":"3.00",
+            "image_url":null,
+            "image":"red-gym-top.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":4,
+        "fields":{
+            "category":4,
+            "sku":"DUMBB-MULTI",
+            "name":"Dumbbells Set",
+            "description":"Set of multi-coloured dumbbells",
+            "has_sizes":false,
+            "price":"45.00",
+            "rating":"5.00",
+            "image_url":null,
+            "image":"dumbbells-set.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":5,
+        "fields":{
+            "category":4,
+            "sku":"DUMBB-BLACK",
+            "name":"Dumbbells Rack",
+            "description":"Rack of multi-weighted dumbbells",
+            "has_sizes":false,
+            "price":"180.00",
+            "rating":"5.00",
+            "image_url":null,
+            "image":"dumbbells-rack.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":6,
+        "fields":{
+            "category":4,
+            "sku":"RESIS-COLOR",
+            "name":"Resistance Bands Set",
+            "description":"Set of multi-coloured resistance bands",
+            "has_sizes":false,
+            "price":"35.00",
+            "rating":"4.00",
+            "image_url":null,
+            "image":"resistance-bands.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":7,
+        "fields":{
+            "category":6,
+            "sku":"PROTE-BLUE",
+            "name":"Blue Protein Shaker",
+            "description":"Blue protein shaker",
+            "has_sizes":false,
+            "price":"10.00",
+            "rating":"3.00",
+            "image_url":null,
+            "image":"protein-shaker-blue.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":8,
+        "fields":{
+            "category":6,
+            "sku":"PROTE-BLACK",
+            "name":"Black Protein Shaker",
+            "description":"Black protein shaker",
+            "has_sizes":false,
+            "price":"10.00",
+            "rating":"4.00",
+            "image_url":null,
+            "image":"protein-shaker-black.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":9,
+        "fields":{
+            "category":6,
+            "sku":"NUTRI-BLEND",
+            "name":"Nutribullet Blender",
+            "description":"Nutribullet blender",
+            "has_sizes":false,
+            "price":"130.00",
+            "rating":"5.00",
+            "image_url":null,
+            "image":"nutribullet.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":10,
+        "fields":{
+            "category":7,
+            "sku":"CREAT-POWDE",
+            "name":"Creatine Powder",
+            "description":"Creatine powder",
+            "has_sizes":false,
+            "price":"40.00",
+            "rating":"3.00",
+            "image_url":null,
+            "image":"creatine-powder.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":11,
+        "fields":{
+            "category":7,
+            "sku":"PROTE-POWDE",
+            "name":"Protein Powder",
+            "description":"Protein powder",
+            "has_sizes":false,
+            "price":"50.00",
+            "rating":"4.00",
+            "image_url":null,
+            "image":"protein-powder.webp"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":12,
+        "fields":{
+            "category":7,
+            "sku":"AMINO-POWDE",
+            "name":"Amino Acids Powder",
+            "description":"Amino acids powder",
+            "has_sizes":false,
+            "price":"25.00",
+            "rating":"4.00",
+            "image_url":null,
+            "image":"amino-acids-powder.webp"
+        }
+    },
+    {
+        "model":"memberships.membership",
+        "pk":1,
+        "fields":{
+            "name":"Basic",
+            "description":"Access to basic exercise and nutrition plans, and a 10% discount on all products",
+            "price":"9.99",
+            "benefits":"Premium exercise plans, Premium nutrition plans, Basic exercise plans, Basic nutrition plans, 10% discount on products",
+            "stripe_price_id":"price_1RCQLEPx2zbqPK2lLo5hTZ2E"
+        }
+    },
+    {
+        "model":"memberships.membership",
+        "pk":2,
+        "fields":{
+            "name":"Premium",
+            "description":"Access to premium and basic exercise and nutrition plans, and a 10% discount on all products",
+            "price":"19.99",
+            "benefits":"Premium exercise plans, Premium nutrition plans, Basic exercise plans, Basic nutrition plans, 10% discount on products",
+            "stripe_price_id":"price_1RCQMEPx2zbqPK2lpdzwObiP"
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":5,
+        "fields":{
+            "name":"Beginner Bodyweight Routine",
+            "description":"A no-equipment full-body workout designed to build foundational strength.",
+            "membership":1,
+            "created_at":"2025-04-07T08:50:48.176Z",
+            "updated_at":"2025-04-07T08:50:48.176Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":6,
+        "fields":{
+            "name":"Morning Mobility Flow",
+            "description":"A 15-minute daily mobility and stretching routine to improve flexibility and posture.",
+            "membership":1,
+            "created_at":"2025-04-07T08:51:30.135Z",
+            "updated_at":"2025-04-07T08:51:30.135Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":7,
+        "fields":{
+            "name":"30-Day Walking Challenge",
+            "description":"A low-impact, progressive walking plan for weight loss and heart health.",
+            "membership":1,
+            "created_at":"2025-04-07T08:52:05.646Z",
+            "updated_at":"2025-04-07T08:52:05.646Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":8,
+        "fields":{
+            "name":"Strength & Hypertrophy Split",
+            "description":"A 5-day gym-based plan focused on muscle growth and progressive overload.",
+            "membership":2,
+            "created_at":"2025-04-07T08:52:48.727Z",
+            "updated_at":"2025-04-07T08:52:48.727Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":9,
+        "fields":{
+            "name":"HIIT & Core Shred",
+            "description":"High-intensity interval workouts combined with targeted core training.",
+            "membership":2,
+            "created_at":"2025-04-07T08:53:16.309Z",
+            "updated_at":"2025-04-07T08:53:16.309Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":10,
+        "fields":{
+            "name":"Athletic Conditioning Program",
+            "description":"Advanced performance-focused workouts to boost speed, agility, and endurance.",
+            "membership":2,
+            "created_at":"2025-04-07T08:54:01.344Z",
+            "updated_at":"2025-04-07T08:54:01.344Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":11,
+        "fields":{
+            "name":"Home Cardio Blast",
+            "description":"A beginner-friendly, no-equipment cardio workout that can be done at home. Includes a mix of jogging in place, jumping jacks, and bodyweight exercises for a full-body workout.",
+            "membership":1,
+            "created_at":"2025-04-08T08:51:49.848Z",
+            "updated_at":"2025-04-08T08:51:49.848Z",
+            "is_sample":true
+        }
+    },
+    {
+        "model":"memberships.exerciseplan",
+        "pk":12,
+        "fields":{
+            "name":"Powerlifting Foundations",
+            "description":"A 3-day per week powerlifting program focused on building strength in the squat, deadlift, and bench press. Aimed at intermediate lifters who want to gain power and muscle.",
+            "membership":2,
+            "created_at":"2025-04-08T08:52:37.150Z",
+            "updated_at":"2025-04-08T08:52:37.150Z",
+            "is_sample":true
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":1,
+        "fields":{
+            "name":"Simple Clean Eating Plan",
+            "description":"A balanced weekly meal plan using whole foods and easy recipes.",
+            "membership":1,
+            "created_at":"2025-04-07T08:54:51.216Z",
+            "updated_at":"2025-04-07T08:54:51.216Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":2,
+        "fields":{
+            "name":"Vegetarian Meal Guide",
+            "description":"Plant-based meals designed to provide complete nutrition and variety.",
+            "membership":1,
+            "created_at":"2025-04-07T08:55:25.722Z",
+            "updated_at":"2025-04-07T08:55:25.722Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":3,
+        "fields":{
+            "name":"Low-Calorie Weight Loss Plan",
+            "description":"A 1,500-calorie/day plan focused on fat loss without deprivation.",
+            "membership":1,
+            "created_at":"2025-04-07T08:55:52.908Z",
+            "updated_at":"2025-04-07T08:55:52.908Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":4,
+        "fields":{
+            "name":"High-Protein Muscle Gain Plan",
+            "description":"A nutrient-dense plan optimized for building lean mass.",
+            "membership":2,
+            "created_at":"2025-04-07T08:56:19.734Z",
+            "updated_at":"2025-04-07T08:56:19.734Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":5,
+        "fields":{
+            "name":"Gluten-Free & Gut Health Plan",
+            "description":"Anti-inflammatory meals tailored for digestive health.",
+            "membership":2,
+            "created_at":"2025-04-07T08:56:45.661Z",
+            "updated_at":"2025-04-07T08:56:45.661Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":6,
+        "fields":{
+            "name":"Meal Prep Master Plan",
+            "description":"Weekly prep strategy with batch-cooked meals and time-saving tips.",
+            "membership":2,
+            "created_at":"2025-04-07T08:57:08.798Z",
+            "updated_at":"2025-04-07T08:57:08.798Z",
+            "is_sample":false
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":7,
+        "fields":{
+            "name":"Family-Friendly Clean Eating Plan",
+            "description":"A balanced, family-oriented meal plan featuring simple recipes using whole foods. Focuses on nutritious and easy-to-prepare meals for busy families.",
+            "membership":1,
+            "created_at":"2025-04-08T08:53:22.795Z",
+            "updated_at":"2025-04-08T08:53:22.795Z",
+            "is_sample":true
+        }
+    },
+    {
+        "model":"memberships.nutritionplan",
+        "pk":8,
+        "fields":{
+            "name":"Keto & Fat Loss Meal Plan",
+            "description":"A low-carb, high-fat meal plan designed to help you enter ketosis and accelerate fat loss. Includes simple and delicious keto recipes to support sustainable weight loss.",
+            "membership":2,
+            "created_at":"2025-04-08T08:53:50.396Z",
+            "updated_at":"2025-04-08T08:53:50.396Z",
+            "is_sample":true
+        }
+    }
+]
