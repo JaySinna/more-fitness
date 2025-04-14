@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+
+<div class="container-wrapper py-5">
+  <div class="container quotes-container content-container">
+    <section class="newsletter-section">
+      <div class="row justify-content-center mb-5">
+        <div class="col-12 text-center">
+          <h2 class="text-uppercase mt-4 mb-3">Stay in touch:</h2>
+          <hr class="block-divider block-divider--short mx-auto">
+        </div>
+      </div>
+
+      <div class="row align-items-center justify-content-center">
+        <div class="col-12 col-md-6 mb-4">
+          <h3>Social</h3>
+          <p>Keep up to date with all our latest offers</p>
+          <a href="#" target="_blank"><i class="fab fa-facebook-square"></i> Follow us on Facebook!</a>
+        </div>
+
+        <div class="col-12 col-md-6 mb-4">
+          <h2>Subscribe!</h2>
+          <p>Get exclusive offers and discount codes by subscribing to our monthly newsletter</p>
+
+          <!-- Mailchimp signup form -->
+          <form action="https://gmail.us12.list-manage.com/subscribe/post?u=2169a94e93221850b98ecf1ea&amp;id=e92a5254e9&amp;f_id=0037e7e0f0" method="post" class="validate" target="_blank">
+              <div class="form-group">
+                  <label for="mce-EMAIL">Email address</label>
+                  <input type="email" name="EMAIL" class="form-control required email" id="mce-EMAIL" placeholder="you@example.com" required>
+              </div>
+              <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                  <input type="text" name="b_2169a94e93221850b98ecf1ea_e92a5254e9" tabindex="-1" value="">
+              </div>
+              <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary">Subscribe</button>
+
+              <div id="mce-responses" class="clear">
+                  <div class="response" id="mce-error-response" style="display:none;"></div>
+                  <div class="response" id="mce-success-response" style="display:none;"></div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+  {{ block.super }}
+  <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+  <script>
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='ADDRESS'; ftypes[3]='address';
+      fnames[4]='PHONE'; ftypes[4]='phone';
+      fnames[5]='BIRTHDAY'; ftypes[5]='birthday';
+      fnames[6]='COMPANY'; ftypes[6]='text';
+    })(jQuery);
+    var $mcj = jQuery.noConflict(true);
+  </script>
+{% endblock %}

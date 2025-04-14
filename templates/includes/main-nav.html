@@ -59,9 +59,11 @@
                 {% if user.is_authenticated %}
                     <a href="{% url 'membership_benefits' %}" class="dropdown-item">Membership Benefits</a>
                     <a href="{% url 'my_membership' %}" class="dropdown-item">My Membership</a>
+                    <a href="{% url 'newsletter_signup' %}" class="dropdown-item">Newsletter</a>
                 {% else %}
                     <a href="{% url 'membership_benefits' %}" class="dropdown-item">Membership Benefits</a>
                     <a href="{% url 'membership_list' %}" class="dropdown-item">Become A Member!</a>
+                    <a href="{% url 'newsletter_signup' %}" class="dropdown-item">Newsletter</a>
                 {% endif %}
             </div>
         </li>

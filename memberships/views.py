@@ -282,3 +282,9 @@ def confirm_unsubscribe(request, membership_id):
     }
 
     return render(request, 'memberships/confirm_unsubscribe.html', context)
+
+
+def newsletter_signup(request):
+    """ A view to render the newsletter signup page """
+
+    return render(request, 'memberships/newsletter_signup.html')

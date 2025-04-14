@@ -15,4 +15,5 @@ urlpatterns = [
     path('sample-plans/', views.sample_plans, name='sample_plans'),
     path('unsubscribe/<int:membership_id>/', views.unsubscribe, name='unsubscribe'),
     path('unsubscribe/confirm/<int:membership_id>/', views.confirm_unsubscribe, name='confirm_unsubscribe'),
+    path('newsletter/', views.newsletter_signup, name='newsletter_signup'),
 ]
