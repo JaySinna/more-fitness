@@ -30,9 +30,9 @@ SECRET_KEY = 'django-insecure-2uf!yj2batq_di!95o3my0o$8q8=t2f0-*&2ap86_#73vi6co@
 DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = [
-    '127.0.0.1', # local host
-    'localhost', # listen for stripe webhooks
-    'more-fitness-jay-01f84b915adb.herokuapp.com' # heroku application
+    '127.0.0.1',  # local host
+    'localhost',  # listen for stripe webhooks
+    'more-fitness-jay-01f84b915adb.herokuapp.com'  # heroku application
 ]
 
 
@@ -86,7 +86,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',  # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
@@ -130,7 +130,7 @@ if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-else: 
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

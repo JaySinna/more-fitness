@@ -118,7 +118,7 @@ def exercise_plans(request):
         return render(request, 'memberships/exercise_plans.html', context)
     else:
         return render(request, 'memberships/access_denied.html')
-    
+
 
 @login_required
 def nutrition_plans(request):
@@ -139,7 +139,7 @@ def nutrition_plans(request):
         return render(request, 'memberships/nutrition_plans.html', context)
     else:
         return render(request, 'memberships/access_denied.html')
-    
+
 
 def access_denied(request):
     """ Deny access to fitness plans to users without an active subscription. """
@@ -199,7 +199,7 @@ def nutrition_plan_detail(request, pk):
 
 def membership_benefits(request):
     """ Display the benefits of each membership. """
-    
+
     memberships = Membership.objects.all()
     context = {
         'memberships': memberships,
@@ -220,7 +220,7 @@ def my_membership(request):
     }
 
     return render(request, 'memberships/my_membership.html', context)
-    
+
 
 def sample_plans(request):
     """ Show example exercise and nutrition plans to non-members. """
@@ -274,7 +274,7 @@ def unsubscribe(request, membership_id):
 @login_required
 def confirm_unsubscribe(request, membership_id):
     """ Show confirmation page before unsubscribing """
-    
+
     membership = get_object_or_404(Membership, id=membership_id)
 
     context = {

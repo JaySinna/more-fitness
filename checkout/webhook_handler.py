@@ -12,11 +12,8 @@ from memberships.models import Membership, Subscription
 
 import json
 import time
-import logging
 
 import stripe
-
-logger = logging.getLogger(__name__)
 
 
 class StripeWH_Handler:
@@ -34,7 +31,7 @@ class StripeWH_Handler:
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        
+
         send_mail(
             subject,
             body,
@@ -49,7 +46,7 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)
-    
+
     def handle_payment_intent_succeeded(self, event):
         """
         Handle the payment_intent.succeeded webhook from Stripe
@@ -183,7 +180,7 @@ class StripeWH_Handler:
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
             status=200
         )
-    
+
     def handle_payment_intent_payment_failed(self, event):
         """
         Handle the payment_intent.payment_failed webhook from Stripe
@@ -191,7 +188,7 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)
-    
+
     def handle_subscription_created(self, event):
         """
         Handle the customer.subscription.created webhook from Stripe
@@ -246,7 +243,7 @@ class StripeWH_Handler:
         subscription_id = invoice['subscription']
         customer_id = invoice['customer']
         amount_paid = invoice['amount_paid'] / 100
-    
+
         try:
             profile = UserProfile.objects.get(stripe_customer_id=customer_id)
             profile.is_member = True
@@ -269,7 +266,7 @@ class StripeWH_Handler:
         invoice = event['data']['object']
         subscription_id = invoice['subscription']
         customer_id = invoice['customer']
-    
+
         try:
             profile = UserProfile.objects.get(stripe_customer_id=customer_id)
             profile.is_member = False
@@ -286,7 +283,7 @@ class StripeWH_Handler:
                 content=f'No user profile found for customer {customer_id}.',
                 status=404
             )
-    
+
     def _send_payment_failure_email(self, profile):
         """
         Send a payment failure notification email to the user
@@ -296,7 +293,7 @@ class StripeWH_Handler:
             'We were unable to process your subscription payment. Please update your payment information ' \
             'to continue enjoying your membership benefits.\n\n' \
             'If you have any questions, feel free to contact our support team.'
-    
+
         send_mail(
             subject,
             body,
@@ -311,7 +308,7 @@ class StripeWH_Handler:
         subscription = event['data']['object']
         customer_id = subscription['customer']
         subscription_id = subscription['id']
-    
+
         try:
             profile = UserProfile.objects.get(stripe_customer_id=customer_id)
             profile.is_member = False
@@ -326,7 +323,6 @@ class StripeWH_Handler:
                 content=f'No user profile found for customer {customer_id}.',
                 status=404
             )
-        
 
     def handle_checkout_session_completed(self, event):
         """
@@ -335,9 +331,6 @@ class StripeWH_Handler:
         session = event['data']['object']
         metadata = session.get('metadata', {})
 
-        logger.debug("🔔 Webhook received: checkout.session.completed")
-        logger.debug(f"Metadata: {metadata}")
-
         customer_id = session.get('customer')
         subscription_id = session.get('subscription')
 
@@ -345,7 +338,6 @@ class StripeWH_Handler:
         membership_id = metadata.get('membership_id')
 
         if not username or not membership_id:
-            logger.error("❌ Missing username or membership_id in metadata.")
             return HttpResponse(
                 content='Missing metadata: username or membership_id',
                 status=400
@@ -361,8 +353,6 @@ class StripeWH_Handler:
 
             membership = Membership.objects.get(id=membership_id)
 
-            logger.debug(f"✅ Creating or updating subscription for user: {user}")
-
             Subscription.objects.update_or_create(
                 user=user,
                 defaults={
@@ -373,15 +363,12 @@ class StripeWH_Handler:
                 }
             )
 
-            logger.debug(f"🆕 Subscription {'created' if created else 'updated'}: {sub}")
-
             return HttpResponse(
                 content='Subscription created or updated successfully from checkout.session.completed',
                 status=200
             )
 
         except Exception as e:
-            logger.exception("💥 Exception in handle_checkout_session_completed")
             return HttpResponse(
                 content=f'Error in handle_checkout_session_completed: {str(e)}',
                 status=500
