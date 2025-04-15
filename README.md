@@ -46,12 +46,25 @@ Below are screenshots taken with the homepage on large, medium and small screens
 
 - __The Membership Page__
 
-  - This page will allow users to view current state of their membership.
+  - This page will allow users to view the current state of their membership.
   - If a user is logged out, the page will display the available membership plans, and a button to view sample exercise and nutrition plans.
   - If a user is pgged in, the page will display whether or not the user is subscribed to a membership, and buttons to take the user to their exercise and nutrition plans if they are subscribed.
   - If the user is not subscribed, these buttons will take them to an access denied page.
 
 ![Memberships](media/mf-membership.jpg)
+
+- __The Membership Benefits Page__
+
+  - This page allows users to view the details and benefits of each membership.
+
+![Membership Benefits](media/mf-membership-benefits.jpg)
+
+- __The Products Page__
+
+  - This page allows users to view all products available in the online store.
+  - It has a dropdown box available for users to filter the products by category, price, name and rating.
+
+![Products](media/mf-products.jpg)
 
 ### Features To Implement In Future
 
@@ -106,3 +119,4 @@ The only unfixed bug is that when a user clicks the subscribe button for the new
 ### Media
 
 - The images were taken from google images.
+- I have used Amazon Web Services to host all static and media files for the project.
