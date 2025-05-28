@@ -42,9 +42,14 @@
                         <p><strong>Price:</strong> £{{ membership.price }} / month</p>
 
                         {% if subscription and subscription.membership.id == membership.id %}
-                            <button class="btn btn-secondary" disabled>
-                                Currently Subscribed
-                            </button>
+                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                <button class="btn btn-secondary" disabled>
+                                    Currently Subscribed
+                                </button>
+                                <form action="{% url 'confirm_unsubscribe' membership.id %}" method="get" class="mb-0">
+                                    <button type="submit" class="btn btn-danger">Unsubscribe</button>
+                                </form>
+                            </div>                                            
                         {% else %}
                             <a href="{% url 'subscribe_to_membership' membership.id %}" class="btn btn-primary">
                                 Subscribe

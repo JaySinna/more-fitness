@@ -20,8 +20,7 @@ def membership_list(request):
     subscription = None
 
     if request.user.is_authenticated:
-        user_profile = get_object_or_404(UserProfile, user=request.user)
-        subscription = Subscription.objects.filter(user_profile=user_profile, is_active=True).first()
+        subscription = Subscription.objects.filter(user=request.user, is_active=True).first()
 
     context = {
         'memberships': memberships,
