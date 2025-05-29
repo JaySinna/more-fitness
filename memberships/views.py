@@ -101,11 +101,9 @@ def subscription_success(request, membership_id):
 @login_required
 def exercise_plans(request):
     """ Display exercise plans to subscribed users only. """
+    subscription = Subscription.objects.filter(user=request.user, is_active=True).first()
 
-    user_profile = request.user.userprofile
-    subscription = getattr(user_profile, 'subscription', None)
-
-    if subscription and subscription.is_active:
+    if subscription:
         if subscription.membership.name.lower() == 'premium':
             plans = ExercisePlan.objects.filter(is_sample=False)
         else:
@@ -122,11 +120,9 @@ def exercise_plans(request):
 @login_required
 def nutrition_plans(request):
     """ Display nutrition plans to subscribed users only. """
+    subscription = Subscription.objects.filter(user=request.user, is_active=True).first()
 
-    user_profile = request.user.userprofile
-    subscription = getattr(user_profile, 'subscription', None)
-
-    if subscription and subscription.is_active:
+    if subscription:
         if subscription.membership.name.lower() == 'premium':
             plans = NutritionPlan.objects.filter(is_sample=False)
         else:
@@ -151,24 +147,17 @@ def exercise_plan_detail(request, pk):
 
     plan = get_object_or_404(ExercisePlan, pk=pk)
 
-    if plan.is_sample or request.user.is_authenticated:
-        if request.user.is_authenticated:
-            user_profile = request.user.userprofile
-            subscription = getattr(user_profile, 'subscription', None)
+    # Allow access to sample plans for everyone
+    if plan.is_sample:
+        return render(request, 'memberships/exercise_plan_detail.html', {'plan': plan})
 
-            if subscription and subscription.is_active:
-                if plan.membership == subscription.membership or subscription.membership.name.lower() == 'premium':
-                    context = {'plan': plan}
-                    return render(request, 'memberships/exercise_plan_detail.html', context)
-                else:
-                    return render(request, 'memberships/access_denied.html')
-            else:
-                return render(request, 'memberships/access_denied.html')
-        else:
-            context = {'plan': plan}
-            return render(request, 'memberships/exercise_plan_detail.html', context)
-    else:
-        return render(request, 'memberships/access_denied.html')
+    if request.user.is_authenticated:
+        subscription = Subscription.objects.filter(user=request.user, is_active=True).first()
+
+        if subscription and (plan.membership == subscription.membership or subscription.membership.name.lower() == 'premium'):
+            return render(request, 'memberships/exercise_plan_detail.html', {'plan': plan})
+
+    return render(request, 'memberships/access_denied.html')
 
 
 def nutrition_plan_detail(request, pk):
@@ -176,24 +165,17 @@ def nutrition_plan_detail(request, pk):
 
     plan = get_object_or_404(NutritionPlan, pk=pk)
 
-    if plan.is_sample or request.user.is_authenticated:
-        if request.user.is_authenticated:
-            user_profile = request.user.userprofile
-            subscription = getattr(user_profile, 'subscription', None)
+    # Allow access to sample plans for everyone
+    if plan.is_sample:
+        return render(request, 'memberships/nutrition_plan_detail.html', {'plan': plan})
 
-            if subscription and subscription.is_active:
-                if plan.membership == subscription.membership or subscription.membership.name.lower() == 'premium':
-                    context = {'plan': plan}
-                    return render(request, 'memberships/nutrition_plan_detail.html', context)
-                else:
-                    return render(request, 'memberships/access_denied.html')
-            else:
-                return render(request, 'memberships/access_denied.html')
-        else:
-            context = {'plan': plan}
-            return render(request, 'memberships/nutrition_plan_detail.html', context)
-    else:
-        return render(request, 'memberships/access_denied.html')
+    if request.user.is_authenticated:
+        subscription = Subscription.objects.filter(user=request.user, is_active=True).first()
+
+        if subscription and (plan.membership == subscription.membership or subscription.membership.name.lower() == 'premium'):
+            return render(request, 'memberships/nutrition_plan_detail.html', {'plan': plan})
+
+    return render(request, 'memberships/access_denied.html')
 
 
 def membership_benefits(request):
