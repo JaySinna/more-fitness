@@ -10,34 +10,30 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
 <div class="container mt-5">
-    <h1 class="mb-4">Membership Benefits</h1>
+    <h1 class="mb-4 text-white">Membership Benefits</h1>
 
     <div class="row">
         {% for membership in memberships %}
             <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ membership.name }}</h4>
-                        <p class="card-text">{{ membership.description }}</p>
-                        <p><strong>Price:</strong> £{{ membership.price }} / month</p>
-                        
-                        <p><strong>Benefits:</strong></p>
-                        {% if membership.benefits and membership.benefits != "No benefits listed" %}
-                            <p>{{ membership.benefits }}</p>
-                        {% else %}
-                            <p>No benefits available for this membership.</p>
-                        {% endif %}
-                    </div>
+                <div class="membership-card h-100">
+                    <h3>{{ membership.name }}</h3>
+                    <p class="text-light">{{ membership.description }}</p>
+                    <p class="text-white"><strong>Price:</strong> £{{ membership.price }} / month</p>
+
+                    <p class="text-white mb-1"><strong>Benefits:</strong></p>
+                    {% if membership.benefits and membership.benefits != "No benefits listed" %}
+                        <p class="text-light">{{ membership.benefits }}</p>
+                    {% else %}
+                        <p class="text-muted">No benefits available for this membership.</p>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
     </div>
 
-    <!-- Become a Member Button -->
     <div class="text-center mt-4">
-        <a href="{% url 'membership_list' %}" class="btn btn-primary">Become a Member!</a>
+        <a href="{% url 'membership_list' %}" class="btn btn-subscribe">Become a Member!</a>
     </div>
 </div>
 {% endblock %}

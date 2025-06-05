@@ -10,8 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
-<div class="container mt-5 text-center">
+<div class="container mt-5 text-center text-white">
     <h1 class="mb-4">Subscription Successful</h1>
     <p>
         Thank you for subscribing to the <strong>{{ membership.name }}</strong> membership!
@@ -20,6 +19,6 @@
         You now have: <em>{{ membership.description }}</em>
     </p>
 
-    <a href="{% url 'my_membership' %}" class="btn btn-primary mt-4">Go to My Membership</a>
+    <a href="{% url 'my_membership' %}" class="btn btn-outline-light mt-4">Go to My Membership</a>
 </div>
 {% endblock %}

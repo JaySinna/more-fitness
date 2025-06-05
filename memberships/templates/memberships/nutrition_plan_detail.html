@@ -10,22 +10,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
 <div class="container mt-5">
-    <h1 class="mb-4">{{ plan.name }}</h1>
-    <div class="card">
+    <h1 class="mb-4 text-white">{{ plan.name }}</h1>
+    
+    <div class="sample-plan-card">
         <div class="card-body">
-            <p class="card-text">{{ plan.description }}</p>
+            <p class="text-light">{{ plan.description }}</p>
         </div>
-        <div class="card-footer text-muted">
-            Published on: {{ plan.created_at|date:"F j, Y" }}
+        <div class="card-footer">
+            <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
         </div>
     </div>
-    
+
     {% if user.is_authenticated %}
-        <a href="{% url 'nutrition_plans' %}" class="btn btn-secondary mt-4">Back to Nutrition Plans</a>
+        <a href="{% url 'nutrition_plans' %}" class="btn btn-outline-light mt-4">Back to Nutrition Plans</a>
     {% else %}
-        <a href="{% url 'sample_plans' %}" class="btn btn-secondary mt-4">Back to Sample Plans</a>
+        <a href="{% url 'sample_plans' %}" class="btn btn-outline-light mt-4">Back to Sample Plans</a>
     {% endif %}
 </div>
 {% endblock %}

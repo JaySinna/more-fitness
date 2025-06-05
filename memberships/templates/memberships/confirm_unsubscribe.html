@@ -10,16 +10,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
-<div class="container mt-5 text-center">
+<div class="container mt-5 text-center text-white">
     <h1 class="mb-4">Confirm Unsubscription</h1>
     <p>Are you sure you want to unsubscribe from the <strong>{{ membership.name }}</strong> membership?</p>
-    <p>You will lose: <em>{{ membership.description }}</em></p>
+    <p class="text-light">You will lose: <em>{{ membership.description }}</em></p>
 
-    <form method="POST" action="{% url 'unsubscribe' membership.id %}">
+    <form method="POST" action="{% url 'unsubscribe' membership.id %}" class="d-inline-block mt-4">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Yes, Unsubscribe</button>
-        <a href="{% url 'my_membership' %}" class="btn btn-secondary ml-2">Cancel</a>
+        <button type="submit" class="btn btn-danger mr-2">Yes, Unsubscribe</button>
+        <a href="{% url 'my_membership' %}" class="btn btn-outline-light">Cancel</a>
     </form>
 </div>
 {% endblock %}

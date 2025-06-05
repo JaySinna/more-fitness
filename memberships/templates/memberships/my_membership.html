@@ -10,11 +10,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
 <div class="container mt-5">
-    <h1 class="mb-4">My Membership</h1>
+    <h1 class="mb-4 text-white">My Membership</h1>
 
-    <!-- Show current membership -->
     {% if subscription and subscription.is_active %}
         <div class="alert alert-info">
             You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
@@ -25,38 +23,36 @@
         </div>
     {% endif %}
 
-    <!-- List all memberships -->
     <div class="row">
         {% for membership in memberships %}
             <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ membership.name }}</h4>
-                        <p class="card-text">{{ membership.description }}</p>
-                        <p><strong>Price:</strong> £{{ membership.price }} / month</p>
+                <div class="membership-card h-100">
+                    <h3>{{ membership.name }}</h3>
+                    <p>{{ membership.description }}</p>
+                    <p><strong>Price:</strong> £{{ membership.price }} / month</p>
 
-                        {% if subscription and subscription.membership.id == membership.id %}
-                            <a class="btn btn-secondary disabled" href="#" tabindex="-1" role="button" aria-disabled="true">
+                    {% if subscription and subscription.membership.id == membership.id %}
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <button class="btn btn-outline-light disabled" aria-disabled="true">
                                 Currently Subscribed
-                            </a>
+                            </button>
                             <a href="{% url 'confirm_unsubscribe' membership.id %}" class="btn btn-danger ml-2">
                                 Unsubscribe
                             </a>
-                        {% else %}
-                            <a href="{% url 'subscribe_to_membership' membership.id %}" class="btn btn-primary">
-                                Subscribe
-                            </a>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'subscribe_to_membership' membership.id %}" class="btn btn-subscribe">
+                            Subscribe
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
     </div>
 
-    <!-- Buttons for exercise and nutrition plans -->
     <div class="mt-4 text-center">
-        <a href="{% url 'exercise_plans' %}" class="btn btn-success mr-2">My Exercise Plans</a>
-        <a href="{% url 'nutrition_plans' %}" class="btn btn-success">My Nutrition Plans</a>
+        <a href="{% url 'exercise_plans' %}" class="btn btn-outline-success mr-2">My Exercise Plans</a>
+        <a href="{% url 'nutrition_plans' %}" class="btn btn-outline-success">My Nutrition Plans</a>
     </div>
 </div>
 {% endblock %}

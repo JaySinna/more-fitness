@@ -10,42 +10,41 @@
 {% endblock %}
 
 {% block content %}
-<div class="overlay"></div>
 <div class="container mt-5">
-    <h1 class="mb-4">My Nutrition Plans</h1>
+    <h1 class="mb-4 text-white">My Nutrition Plans</h1>
 
     {% if plans %}
         <div class="row">
             {% for plan in plans %}
             <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100">
+                <div class="sample-plan-card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">{{ plan.name }}</h5>
-                        <p class="card-text">{{ plan.description }}</p>
+                        <h5 class="text-white">{{ plan.name }}</h5>
+                        <p class="text-light">{{ plan.description }}</p>
                         <span class="badge 
                             {% if plan.membership.name|lower == 'premium' %}
-                                badge-warning
+                                badge-premium
                             {% else %}
-                                badge-success
+                                badge-basic
                             {% endif %}
                         ">
                             {{ plan.membership.name }} Plan
                         </span>
                     </div>
-                    <div class="card-footer text-muted">
-                        Published on: {{ plan.created_at|date:"F j, Y" }}
-                        <a href="{% url 'nutrition_plan_detail' plan.id %}" class="btn btn-primary btn-sm float-right">View Details</a>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
+                        <a href="{% url 'nutrition_plan_detail' plan.id %}" class="btn btn-subscribe btn-sm">View Details</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     {% else %}
-        <p>No nutrition plans available for your membership yet.</p>
+        <p class="text-light">No nutrition plans available for your membership yet.</p>
     {% endif %}
 
     <div class="text-center mt-4">
-        <a href="{% url 'my_membership' %}" class="btn btn-secondary">My Membership</a>
+        <a href="{% url 'my_membership' %}" class="btn btn-outline-light">My Membership</a>
     </div>
 </div>
 {% endblock %}

@@ -3,26 +3,18 @@ html {
 }
 
 body {
-    background: url('/media/homepage-background-image.jpg') no-repeat center center fixed;
-    background-size: cover;
-    height: calc(100vh - 164px);
-    color: #555;
-    font-family: 'Lato';
+    background-color: #121212;
+    background-image: none;
+    color: #e0e0e0;
+    font-family: 'Lato', sans-serif;
+    height: 100%;
 }
 
 header, #main-nav {
-    background-color: #87CEEB;
+    background-color: #1f1f1f;
 }
 
-/* from Bulma */
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
-}
-
+/* Logo and text */
 .logo-font {
     text-transform: uppercase;
 }
@@ -31,46 +23,43 @@ header, #main-nav {
     width: fit-content;
 }
 
+/* Buttons */
 .shop-now-button {
-    background: #87CEEB;
-    color: black;
+    background: #e50914;
+    color: #fff;
     min-width: 260px;
 }
 
 .btn-black {
-    background: black;
+    background: #333;
     color: white;
 }
 
 .btn-outline-black {
-    background: white;
-    color: black !important; /* use important to override link colors for <a> elements */
-    border: 1px solid black;
+    background: transparent;
+    color: white !important;
+    border: 1px solid white;
 }
 
 .btn-outline-black:hover,
 .btn-outline-black:active,
-.btn-outline-black:focus {
-    background: black;
-    color: white !important;
-}
-
+.btn-outline-black:focus,
 .shop-now-button:hover,
 .shop-now-button:active,
 .shop-now-button:focus,
 .btn-black:hover,
 .btn-black:active,
 .btn-black:focus {
-    background: #222;
-    color: white;
+    background: white;
+    color: black !important;
 }
 
 .text-black {
-    color: #000 !important;
+    color: white !important;
 }
 
 .border-black {
-    border: 1px solid black !important;
+    border: 1px solid #444 !important;
 }
 
 .bg-black {
@@ -78,40 +67,27 @@ header, #main-nav {
 }
 
 .overlay {
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	position: fixed;
-	background: #8EE360;
-	z-index: -1;
+    background: #1f1f1f;
 }
 
+/* Badges */
 a.category-badge > span.badge:hover {
-    background: #212529 !important;
-    color: #fff !important;
+    background: #e50914 !important;
+    color: white !important;
 }
 
-.btt-button {
-    height: 42px;
-    width: 42px;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-}
-
-.btt-link,
-.update-link,
-.remove-item {
-    cursor: pointer;
+/* Search/input styling */
+input[name='q'] {
+    background-color: #222;
+    color: white;
+    border: 1px solid #444;
 }
 
 input[name='q']::placeholder {
-    color: #aab7c4;
+    color: #aaa;
 }
 
-/* ------------------------------- bootstrap toasts */
-
+/* Toasts */
 .message-container {
     position: fixed;
     top: 72px;
@@ -120,155 +96,283 @@ input[name='q']::placeholder {
 }
 
 .custom-toast {
-    overflow: visible;
+    background-color: #222;
+    color: #fff;
 }
 
 .toast-capper {
-    height: 2px;
+    background: #e50914;
 }
 
-/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
+/* Bootstrap triangle arrows */
 .arrow-up {
-    width: 0; 
-    height: 0; 
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent; 
-    border-bottom: 10px solid black;
-    position: absolute;
-    top: -10px;
-    right: 36px;
+    border-bottom: 10px solid white;
 }
 
-/* Convenience classes - colors copied from Bootstrap */
-.arrow-primary {
-    border-bottom-color: #007bff !important;
+/* Convenience classes */
+.btt-button {
+    background-color: #e50914;
 }
 
-.arrow-secondary {
-    border-bottom-color: #6c757d !important;
-}
-
-.arrow-success {
-    border-bottom-color: #28a745 !important;
-}
-
-.arrow-danger {
-    border-bottom-color: #dc3545 !important;
-}
-
-.arrow-warning {
-    border-bottom-color: #ffc107 !important;
-}
-
-.arrow-info {
-    border-bottom-color: #17a2b8 !important;
-}
-
-.arrow-light {
-    border-bottom-color: #f8f9fa !important;
-}
-
-.arrow-dark {
-    border-bottom-color: #343a40 !important;
-}
-
-.bag-notification-wrapper {
-    height: 100px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-/* -------------------------------- Media Queries */
-
-/* Slightly larger container on xl screens */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 80%;
-  }
-}
-
-/* Allauth form formatting */
-
-.allauth-form-inner-content p {
-    margin-top: 1.5rem; /* mt-4 */
-    color: #6c757d; /* text-secondary */
-}
-
-.allauth-form-inner-content input {
-    border-color: #000;
-    border-radius: 0;
-}
-
-.allauth-form-inner-content label:not([for='id_remember']) {
-    display: none;
-}
-
-.allauth-form-inner-content input::placeholder {
-    color: #aab7c4;
-}
-
-.allauth-form-inner-content button,
-.allauth-form-inner-content input[type='submit'] {
-	/* btn */
-	display: inline-block;
-    font-weight: 400;
-    color: #fff;
-    text-align: center;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: #000;
-    border: 1px solid #000;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 0;
-
-    /* standard bootstrap btn transitions */
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.allauth-form-inner-content button:hover,
-.allauth-form-inner-content input[type='submit']:hover {	
-	color: #fff;
-    background-color: #222;
-    border-color: #222;
-}
-
-.allauth-form-inner-content a {
-	color: #17a2b8; /* text-info */
-}
-
-/* Product Form */
-
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-file input[type="file"] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    opacity: 0;
+.btt-link,
+.update-link,
+.remove-item {
     cursor: pointer;
 }
 
-.custom-checkbox .custom-control-label::before {
-    border-radius: 0;
-    border-color: #dc3545;
+/* Auth forms */
+.allauth-form-inner-content input,
+.allauth-form-inner-content select {
+    background-color: #222;
+    color: white;
+    border: 1px solid #444;
 }
 
-.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    border-radius: 0;
+.allauth-form-inner-content input::placeholder {
+    color: #aaa;
 }
 
+.allauth-form-inner-content button {
+    background-color: #e50914;
+    border-color: #e50914;
+}
+
+.allauth-form-inner-content button:hover {
+    background-color: #fff;
+    color: black;
+}
+
+/* Membership Cards - Dark Theme */
+.membership-card {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    color: #f0f0f0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+
+.membership-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+}
+
+.membership-card h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.membership-card p {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.btn-subscribe {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn-subscribe:hover {
+    background-color: #fff;
+    color: black;
+}
+
+/* Optional tweak for spacing */
+.btn + form {
+    margin-left: 10px;
+}
+
+/* Override Bootstrap's yellow warning alert for dark theme */
+.alert-warning {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+    border: 1px solid #444;
+}
+
+/* Optional: link colors inside alerts */
+.alert-warning a {
+    color: #e50914;
+    text-decoration: underline;
+}
+
+.alert-warning a:hover {
+    color: #fff;
+}
+
+/* Sample Plan Cards */
+.sample-plan-card {
+    background-color: #1f1f1f;
+    color: #f0f0f0;
+    border: 1px solid #333;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sample-plan-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+}
+
+.sample-plan-card .card-body {
+    padding-bottom: 0;
+}
+
+.sample-plan-card .card-footer {
+    background: transparent;
+    border-top: 1px solid #444;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+/* Alert box styling for dark theme */
+.alert-info {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+    border: 1px solid #444;
+}
+
+/* Optional: dark-themed links inside alerts */
+.alert-info a {
+    color: #e50914;
+    text-decoration: underline;
+}
+
+.alert-info a:hover {
+    color: white;
+}
+
+/* Badges for plan type */
+.badge-basic {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.badge-premium {
+    background-color: #e50914;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* Optional hover for badges */
+.badge-basic:hover,
+.badge-premium:hover {
+    opacity: 0.9;
+}
+
+form input.form-control {
+    background-color: #fff;
+    color: #000;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+form input.form-control:focus {
+    outline: none;
+    border: 2px solid #e50914;
+    box-shadow: none;
+}
+
+.card-footer.bg-dark {
+    background-color: #111 !important;
+    color: white !important;
+    border-top: 1px solid #333;
+}
+.card-footer a {
+    color: #0dcaf0;
+}
+
+.product-details-container {
+    background-color: #111;
+    color: #fff;
+}
+.product-details-container a {
+    color: #0dcaf0;
+}
+.btn.btn-light {
+    background-color: #0dcaf0;
+    color: #000;
+    border: none;
+}
+.btn.btn-light:hover {
+    background-color: #00b4d8;
+    color: #000;
+}
+.btn.btn-outline-light:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.btn-light {
+    background-color: #dc3545; /* red like 'Subscribe' */
+    color: #fff;
+    border: none;
+}
+
+.btn-light:hover {
+    background-color: #b02a37;
+    color: #fff;
+}
+
+.btn-outline-light {
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: transparent;
+}
+
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.rounded-pill {
+    border-radius: 50rem !important;
+}
+
+/* Product Info Styling */
+.product-info {
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+    padding: 1rem;
+    color: #fff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Mobile responsiveness tweaks preserved */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 80%;
+    }
+}
 
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
@@ -293,41 +397,5 @@ input[name='q']::placeholder {
 
     body {
         height: calc(100vh - 116px);
-    }
-
-    .display-4.logo-font.text-black {
-        font-size: 2rem;
-    }
-
-    .nav-link {
-        padding: 0.15rem;
-    }
-
-    .nav-link i.fa-lg {
-        font-size: 1rem;
-    }
-
-    .navbar-toggler {
-        padding: .6rem .6rem;
-        font-size: 1rem;
-    }
-
-    #delivery-banner h4 {
-        font-size: .9rem;
-    }
-
-    .btn.btn-outline-black.rounded-0,
-    .btn.btn-black.rounded-0 {
-        padding: .375rem .375rem;
-    }
-
-    .btn.btn-outline-black.rounded-0.btn-lg,
-    .btn.btn-black.rounded-0.btn-lg {
-        padding: .375rem .375rem;
-        font-size: .75rem;
-    }
-
-    .increment-qty, .decrement-qty {
-        padding: .25rem .5rem !important;
     }
 }
