@@ -183,19 +183,16 @@ input[name='q']::placeholder {
     color: black;
 }
 
-/* Optional tweak for spacing */
 .btn + form {
     margin-left: 10px;
 }
 
-/* Override Bootstrap's yellow warning alert for dark theme */
 .alert-warning {
     background-color: #2b2b2b;
     color: #f0f0f0;
     border: 1px solid #444;
 }
 
-/* Optional: link colors inside alerts */
 .alert-warning a {
     color: #e50914;
     text-decoration: underline;
@@ -242,7 +239,6 @@ input[name='q']::placeholder {
     border: 1px solid #444;
 }
 
-/* Optional: dark-themed links inside alerts */
 .alert-info a {
     color: #e50914;
     text-decoration: underline;
@@ -269,7 +265,6 @@ input[name='q']::placeholder {
     font-size: 0.85rem;
 }
 
-/* Optional hover for badges */
 .badge-basic:hover,
 .badge-premium:hover {
     opacity: 0.9;
@@ -326,7 +321,7 @@ form input.form-control:focus {
 }
 
 .btn-light {
-    background-color: #dc3545; /* red like 'Subscribe' */
+    background-color: #dc3545;
     color: #fff;
     border: none;
 }

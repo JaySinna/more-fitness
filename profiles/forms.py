@@ -5,7 +5,15 @@ from .models import UserProfile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user',)
+        fields = (
+            'default_phone_number',
+            'default_street_address1',
+            'default_street_address2',
+            'default_town_or_city',
+            'default_county',
+            'default_postcode',
+            'default_country',
+        )
 
     def __init__(self, *args, **kwargs):
         """
@@ -28,7 +36,7 @@ class UserProfileForm(forms.ModelForm):
                 if self.fields[field].required:
                     placeholder = f'{placeholders[field]} *'
                 else:
-                    placeholder = placeholders[field]
+                    placeholder = placeholders.get(field, '')
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'border-black rounded-0 profile-form-input'
             self.fields[field].label = False
