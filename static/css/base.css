@@ -362,6 +362,27 @@ form input.form-control:focus {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Bag Page Enhancements */
+table th, table td {
+    color: #f0f0f0;
+}
+
+.table-borderless th, .table-borderless td {
+    border: none;
+}
+
+.update-link, .remove-item {
+    color: #0dcaf0;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.update-link:hover,
+.remove-item:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
 /* Mobile responsiveness tweaks preserved */
 @media (min-width: 1200px) {
     .container {
