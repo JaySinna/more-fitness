@@ -1,24 +1,34 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Success</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+    {% block page_header %}
+        <div class="container header-container">
+            <div class="row">
+                <div class="col"></div>
+            </div>
         </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-5 text-center text-white">
+        <h1 class="mb-4">Subscription Successful</h1>
+        <p>
+            Thank you for subscribing to the <strong>{{ membership.name }}</strong> membership!
+        </p>
+        <p>
+            You now have: <em>{{ membership.description }}</em>
+        </p>
+
+        <a href="{% url 'my_membership' %}" class="btn btn-outline-light mt-4">Go to My Membership</a>
     </div>
-{% endblock %}
-
-{% block content %}
-<div class="container mt-5 text-center text-white">
-    <h1 class="mb-4">Subscription Successful</h1>
-    <p>
-        Thank you for subscribing to the <strong>{{ membership.name }}</strong> membership!
-    </p>
-    <p>
-        You now have: <em>{{ membership.description }}</em>
-    </p>
-
-    <a href="{% url 'my_membership' %}" class="btn btn-outline-light mt-4">Go to My Membership</a>
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

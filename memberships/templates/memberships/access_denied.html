@@ -1,20 +1,30 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+    {% block page_header %}
+        <div class="container header-container">
+            <div class="row">
+                <div class="col"></div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="text-center">
+            <h1 class="mb-4 text-white">Access Denied</h1>
+            <p class="mb-4 text-light">You need an active membership to access this content.</p>
+            <a href="{% url 'membership_list' %}" class="btn btn-outline-light">Go to Memberships</a>
         </div>
     </div>
-{% endblock %}
-
-{% block content %}
-<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 60vh;">
-    <div class="text-center">
-        <h1 class="mb-4 text-white">Access Denied</h1>
-        <p class="mb-4 text-light">You need an active membership to access this content.</p>
-        <a href="{% url 'membership_list' %}" class="btn btn-outline-light">Go to Memberships</a>
-    </div>
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

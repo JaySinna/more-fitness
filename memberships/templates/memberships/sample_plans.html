@@ -1,76 +1,86 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Plans</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
-{% endblock %}
-
-{% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-center text-white">Sample Plans</h1>
-
-    <div class="row justify-content-center">
-
-        <!-- Sample Exercise Plans Column -->
-        <div class="col-md-5">
-            <h2 class="text-center text-white">Sample Exercise Plans</h2>
-            {% if sample_exercise_plans %}
-                <div class="row">
-                    {% for plan in sample_exercise_plans %}
-                        <div class="col-md-12 mb-4 d-flex">
-                            <div class="sample-plan-card w-100">
-                                <div class="card-body">
-                                    <h5 class="text-white">{{ plan.name }}</h5>
-                                    <p class="text-light">{{ plan.description }}</p>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
-                                    <a href="{% url 'exercise_plan_detail' plan.id %}" class="btn btn-subscribe btn-sm">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="text-light">No sample exercise plans available at the moment.</p>
-            {% endif %}
-        </div>
-
-        <div class="col-md-1"></div>
-
-        <!-- Sample Nutrition Plans Column -->
-        <div class="col-md-5">
-            <h2 class="text-center text-white">Sample Nutrition Plans</h2>
-            {% if sample_nutrition_plans %}
-                <div class="row">
-                    {% for plan in sample_nutrition_plans %}
-                        <div class="col-md-12 mb-4 d-flex">
-                            <div class="sample-plan-card w-100">
-                                <div class="card-body">
-                                    <h5 class="text-white">{{ plan.name }}</h5>
-                                    <p class="text-light">{{ plan.description }}</p>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between align-items-center">
-                                    <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
-                                    <a href="{% url 'nutrition_plan_detail' plan.id %}" class="btn btn-subscribe btn-sm">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p class="text-light">No sample nutrition plans available at the moment.</p>
-            {% endif %}
+    {% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
         </div>
     </div>
+    {% endblock %}
 
-    <!-- Button to navigate back to Memberships -->
-    <div class="mt-4 text-center">
-        <a href="{% url 'membership_list' %}" class="btn btn-outline-light">Back to Memberships</a>
+    {% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center text-white">Sample Plans</h1>
+
+        <div class="row justify-content-center">
+
+            <!-- Sample Exercise Plans Column -->
+            <div class="col-md-5">
+                <h2 class="text-center text-white">Sample Exercise Plans</h2>
+                {% if sample_exercise_plans %}
+                    <div class="row">
+                        {% for plan in sample_exercise_plans %}
+                            <div class="col-md-12 mb-4 d-flex">
+                                <div class="sample-plan-card w-100">
+                                    <div class="card-body">
+                                        <h5 class="text-white">{{ plan.name }}</h5>
+                                        <p class="text-light">{{ plan.description }}</p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
+                                        <a href="{% url 'exercise_plan_detail' plan.id %}" class="btn btn-subscribe btn-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-light">No sample exercise plans available at the moment.</p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-1"></div>
+
+            <!-- Sample Nutrition Plans Column -->
+            <div class="col-md-5">
+                <h2 class="text-center text-white">Sample Nutrition Plans</h2>
+                {% if sample_nutrition_plans %}
+                    <div class="row">
+                        {% for plan in sample_nutrition_plans %}
+                            <div class="col-md-12 mb-4 d-flex">
+                                <div class="sample-plan-card w-100">
+                                    <div class="card-body">
+                                        <h5 class="text-white">{{ plan.name }}</h5>
+                                        <p class="text-light">{{ plan.description }}</p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
+                                        <a href="{% url 'nutrition_plan_detail' plan.id %}" class="btn btn-subscribe btn-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-light">No sample nutrition plans available at the moment.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Button to navigate back to Memberships -->
+        <div class="mt-4 text-center">
+            <a href="{% url 'membership_list' %}" class="btn btn-outline-light">Back to Memberships</a>
+        </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

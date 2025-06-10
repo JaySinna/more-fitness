@@ -1,24 +1,34 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Unsubscribe</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+    {% block page_header %}
+        <div class="container header-container">
+            <div class="row">
+                <div class="col"></div>
+            </div>
         </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-5 text-center text-white">
+        <h1 class="mb-4">Confirm Unsubscription</h1>
+        <p>Are you sure you want to unsubscribe from the <strong>{{ membership.name }}</strong> membership?</p>
+        <p class="text-light">You will lose: <em>{{ membership.description }}</em></p>
+
+        <form method="POST" action="{% url 'unsubscribe' membership.id %}" class="d-inline-block mt-4">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger mr-2">Yes, Unsubscribe</button>
+            <a href="{% url 'my_membership' %}" class="btn btn-outline-light">Cancel</a>
+        </form>
     </div>
-{% endblock %}
-
-{% block content %}
-<div class="container mt-5 text-center text-white">
-    <h1 class="mb-4">Confirm Unsubscription</h1>
-    <p>Are you sure you want to unsubscribe from the <strong>{{ membership.name }}</strong> membership?</p>
-    <p class="text-light">You will lose: <em>{{ membership.description }}</em></p>
-
-    <form method="POST" action="{% url 'unsubscribe' membership.id %}" class="d-inline-block mt-4">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger mr-2">Yes, Unsubscribe</button>
-        <a href="{% url 'my_membership' %}" class="btn btn-outline-light">Cancel</a>
-    </form>
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

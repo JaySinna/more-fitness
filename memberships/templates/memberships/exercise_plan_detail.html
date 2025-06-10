@@ -1,31 +1,41 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Plan Detail</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+    {% block page_header %}
+        <div class="container header-container">
+            <div class="row">
+                <div class="col"></div>
+            </div>
         </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-white">{{ plan.name }}</h1>
+        
+        <div class="sample-plan-card">
+            <div class="card-body">
+                <p class="text-light">{{ plan.description }}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'exercise_plans' %}" class="btn btn-outline-light mt-4">Back to Exercise Plans</a>
+        {% else %}
+            <a href="{% url 'sample_plans' %}" class="btn btn-outline-light mt-4">Back to Sample Plans</a>
+        {% endif %}
     </div>
-{% endblock %}
-
-{% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-white">{{ plan.name }}</h1>
-    
-    <div class="sample-plan-card">
-        <div class="card-body">
-            <p class="text-light">{{ plan.description }}</p>
-        </div>
-        <div class="card-footer">
-            <small class="text-muted">Published on: {{ plan.created_at|date:"F j, Y" }}</small>
-        </div>
-    </div>
-
-    {% if user.is_authenticated %}
-        <a href="{% url 'exercise_plans' %}" class="btn btn-outline-light mt-4">Back to Exercise Plans</a>
-    {% else %}
-        <a href="{% url 'sample_plans' %}" class="btn btn-outline-light mt-4">Back to Sample Plans</a>
-    {% endif %}
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

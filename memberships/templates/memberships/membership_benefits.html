@@ -1,39 +1,49 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Benefits</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
+    {% block page_header %}
+        <div class="container header-container">
+            <div class="row">
+                <div class="col"></div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-white">Membership Benefits</h1>
+
         <div class="row">
-            <div class="col"></div>
+            {% for membership in memberships %}
+                <div class="col-md-6 mb-4">
+                    <div class="membership-card h-100">
+                        <h3>{{ membership.name }}</h3>
+                        <p class="text-light">{{ membership.description }}</p>
+                        <p class="text-white"><strong>Price:</strong> £{{ membership.price }} / month</p>
+
+                        <p class="text-white mb-1"><strong>Benefits:</strong></p>
+                        {% if membership.benefits and membership.benefits != "No benefits listed" %}
+                            <p class="text-light">{{ membership.benefits }}</p>
+                        {% else %}
+                            <p class="text-muted">No benefits available for this membership.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'membership_list' %}" class="btn btn-subscribe">Become a Member!</a>
         </div>
     </div>
-{% endblock %}
-
-{% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-white">Membership Benefits</h1>
-
-    <div class="row">
-        {% for membership in memberships %}
-            <div class="col-md-6 mb-4">
-                <div class="membership-card h-100">
-                    <h3>{{ membership.name }}</h3>
-                    <p class="text-light">{{ membership.description }}</p>
-                    <p class="text-white"><strong>Price:</strong> £{{ membership.price }} / month</p>
-
-                    <p class="text-white mb-1"><strong>Benefits:</strong></p>
-                    {% if membership.benefits and membership.benefits != "No benefits listed" %}
-                        <p class="text-light">{{ membership.benefits }}</p>
-                    {% else %}
-                        <p class="text-muted">No benefits available for this membership.</p>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="text-center mt-4">
-        <a href="{% url 'membership_list' %}" class="btn btn-subscribe">Become a Member!</a>
-    </div>
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>

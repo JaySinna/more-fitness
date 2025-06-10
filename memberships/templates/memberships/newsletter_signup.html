@@ -1,71 +1,81 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Signup</title>
+</head>
+<body>
+  {% extends "base.html" %}
+  {% load static %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
-{% endblock %}
-
-{% block content %}
-<div class="container-wrapper py-5">
-  <div class="container content-container text-white">
-    <section class="newsletter-section">
-      <div class="row justify-content-center mb-5">
-        <div class="col-12 text-center">
-          <h2 class="text-uppercase mt-4 mb-3">Stay in Touch:</h2>
-          <hr class="block-divider block-divider--short mx-auto">
-        </div>
+  {% block page_header %}
+  <div class="container header-container">
+      <div class="row">
+          <div class="col"></div>
       </div>
-
-      <div class="row align-items-start justify-content-center">
-        <!-- Social -->
-        <div class="col-12 col-md-6 mb-4">
-          <h3>Social</h3>
-          <p>Keep up to date with all our latest offers</p>
-          <a href="https://www.facebook.com/" target="_blank" class="text-info">
-            <i class="fab fa-facebook-square"></i> Follow us on Facebook!
-          </a>
-        </div>
-
-        <!-- Subscription Form -->
-        <div class="col-12 col-md-6 mb-4">
-          <h3>Subscribe!</h3>
-          <p>Get exclusive offers and discount codes by subscribing to our monthly newsletter</p>
-
-          <form action="https://gmail.us12.list-manage.com/subscribe/post?u=2169a94e93221850b98ecf1ea&amp;id=e92a5254e9&amp;f_id=0037e7e0f0" method="post" class="validate" target="_blank">
-              <div class="form-group">
-                  <label for="mce-EMAIL" class="text-light">Email address</label>
-                  <input type="email" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="you@example.com" required>
-              </div>
-              <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                  <input type="text" name="b_2169a94e93221850b98ecf1ea_e92a5254e9" tabindex="-1" value="">
-              </div>
-              <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-subscribe">Subscribe</button>
-
-              <div id="mce-responses" class="clear mt-2">
-                  <div class="response" id="mce-error-response" style="display:none;"></div>
-                  <div class="response" id="mce-success-response" style="display:none;"></div>
-              </div>
-          </form>
-        </div>
-      </div>
-    </section>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}
 
-{% block postloadjs %}
-  {{ block.super }}
-  <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-  <script>
-    (function($) {
-      window.fnames = new Array(); 
-      window.ftypes = new Array();
-      fnames[0]='EMAIL'; ftypes[0]='email';
-    })(jQuery);
-    var $mcj = jQuery.noConflict(true);
-  </script>
-{% endblock %}
+  {% block content %}
+  <div class="container-wrapper py-5">
+    <div class="container content-container text-white">
+      <section class="newsletter-section">
+        <div class="row justify-content-center mb-5">
+          <div class="col-12 text-center">
+            <h2 class="text-uppercase mt-4 mb-3">Stay in Touch:</h2>
+            <hr class="block-divider block-divider--short mx-auto">
+          </div>
+        </div>
+
+        <div class="row align-items-start justify-content-center">
+          <!-- Social -->
+          <div class="col-12 col-md-6 mb-4">
+            <h3>Social</h3>
+            <p>Keep up to date with all our latest offers</p>
+            <a href="https://www.facebook.com/" target="_blank" class="text-info">
+              <i class="fab fa-facebook-square"></i> Follow us on Facebook!
+            </a>
+          </div>
+
+          <!-- Subscription Form -->
+          <div class="col-12 col-md-6 mb-4">
+            <h3>Subscribe!</h3>
+            <p>Get exclusive offers and discount codes by subscribing to our monthly newsletter</p>
+
+            <form action="https://gmail.us12.list-manage.com/subscribe/post?u=2169a94e93221850b98ecf1ea&amp;id=e92a5254e9&amp;f_id=0037e7e0f0" method="post" class="validate" target="_blank">
+                <div class="form-group">
+                    <label for="mce-EMAIL" class="text-light">Email address</label>
+                    <input type="email" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="you@example.com" required>
+                </div>
+                <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                    <input type="text" name="b_2169a94e93221850b98ecf1ea_e92a5254e9" tabindex="-1" value="">
+                </div>
+                <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-subscribe">Subscribe</button>
+
+                <div id="mce-responses" class="clear mt-2">
+                    <div class="response" id="mce-error-response" style="display:none;"></div>
+                    <div class="response" id="mce-success-response" style="display:none;"></div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block postloadjs %}
+    {{ block.super }}
+    <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script>
+      (function($) {
+        window.fnames = new Array(); 
+        window.ftypes = new Array();
+        fnames[0]='EMAIL'; ftypes[0]='email';
+      })(jQuery);
+      var $mcj = jQuery.noConflict(true);
+    </script>
+  {% endblock %}
+</body>
+</html>

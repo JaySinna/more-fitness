@@ -1,58 +1,68 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Membership</title>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
-    </div>
-{% endblock %}
-
-{% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-white">My Membership</h1>
-
-    {% if subscription and subscription.is_active %}
-        <div class="alert alert-info">
-            You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
-        </div>
-    {% else %}
-        <div class="alert alert-warning">
-            You are not currently subscribed to any membership.
-        </div>
-    {% endif %}
-
-    <div class="row">
-        {% for membership in memberships %}
-            <div class="col-md-6 mb-4">
-                <div class="membership-card h-100">
-                    <h3>{{ membership.name }}</h3>
-                    <p>{{ membership.description }}</p>
-                    <p><strong>Price:</strong> £{{ membership.price }} / month</p>
-
-                    {% if subscription and subscription.membership.id == membership.id %}
-                        <div class="d-flex flex-wrap align-items-center gap-2">
-                            <button class="btn btn-outline-light disabled" aria-disabled="true">
-                                Currently Subscribed
-                            </button>
-                            <a href="{% url 'confirm_unsubscribe' membership.id %}" class="btn btn-danger ml-2">
-                                Unsubscribe
-                            </a>
-                        </div>
-                    {% else %}
-                        <a href="{% url 'subscribe_to_membership' membership.id %}" class="btn btn-subscribe">
-                            Subscribe
-                        </a>
-                    {% endif %}
-                </div>
+    {% block page_header %}
+        <div class="container header-container">
+            <div class="row">
+                <div class="col"></div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endblock %}
 
-    <div class="mt-4 text-center">
-        <a href="{% url 'exercise_plans' %}" class="btn btn-outline-success mr-2">My Exercise Plans</a>
-        <a href="{% url 'nutrition_plans' %}" class="btn btn-outline-success">My Nutrition Plans</a>
+    {% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-white">My Membership</h1>
+
+        {% if subscription and subscription.is_active %}
+            <div class="alert alert-info">
+                You are currently subscribed to the <strong>{{ subscription.membership.name }}</strong> membership.
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                You are not currently subscribed to any membership.
+            </div>
+        {% endif %}
+
+        <div class="row">
+            {% for membership in memberships %}
+                <div class="col-md-6 mb-4">
+                    <div class="membership-card h-100">
+                        <h3>{{ membership.name }}</h3>
+                        <p>{{ membership.description }}</p>
+                        <p><strong>Price:</strong> £{{ membership.price }} / month</p>
+
+                        {% if subscription and subscription.membership.id == membership.id %}
+                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                <button class="btn btn-outline-light disabled" aria-disabled="true">
+                                    Currently Subscribed
+                                </button>
+                                <a href="{% url 'confirm_unsubscribe' membership.id %}" class="btn btn-danger ml-2">
+                                    Unsubscribe
+                                </a>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'subscribe_to_membership' membership.id %}" class="btn btn-subscribe">
+                                Subscribe
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4 text-center">
+            <a href="{% url 'exercise_plans' %}" class="btn btn-outline-success mr-2">My Exercise Plans</a>
+            <a href="{% url 'nutrition_plans' %}" class="btn btn-outline-success">My Nutrition Plans</a>
+        </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+</html>
