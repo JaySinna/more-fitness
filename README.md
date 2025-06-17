@@ -12,18 +12,17 @@ The site is designed for fitness enthusiasts and health-conscious individuals wh
 
 ## Table of Contents
 - [Project Overview](#project-overview)
+- [Wireframes](#wireframes)
 - [Features](#features)
   - [Existing Features](#existing-features)
   - [Future Features](#features-to-implement-in-future)
 - [E-commerce Business Model](#e-commerce-business-model)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
-  - [Setting Up Locally](#setting-up-locally)
   - [Deploying to Heroku](#deploying-to-heroku)
 - [Testing](#testing)
   - [Manual Testing](#manual-testing)
   - [Validator Testing](#validator-testing)
-  - [Unit Testing](#unit-testing)
 - [Deployment](#deployment)
 - [Security Features](#security-features)
 - [Credits](#credits)
@@ -175,6 +174,8 @@ The **business model** behind the More Fitness site is based on **subscription-b
 
 ## Testing
 
+### Manual Testing
+
 - I tested that this page works in different browsers, Chrome and Safari.
 - I confirmed that this project is responsive, looks good and functions on all standard screen sizes using the devtools device toolbar.
 - I confirmed that the navigation, header, signup/newsletter page, memberships page, product pages and form input fields are all readable and easy to understand.
@@ -213,15 +214,15 @@ The **business model** behind the More Fitness site is based on **subscription-b
 
 The only unfixed bug is that when a user clicks the subscribe button for the newsletter, a new tab opens with a subscription success confirmation from mailchimp, and a button to take the user back to the site, but when that button is clicked it doesn't take the user back to the site. I was unable to workout how to enter my site url into mailchimp to be used as the redirect site for the button.
 
+## Deployment
+
+- This site was deployed via heroku.
+
 ## Security Features
 
 - Password Hashing: Passwords are securely hashed using Django’s default password hashing mechanisms (bcrypt).
 - Session Management: The app uses Django's built-in session management to securely store user sessions and manage user authentication.
 - Secret Key: The secret key is stored securely in the environment and never exposed in the codebase.
-
-## Deployment
-
-- This site was deployed via heroku.
 
 ## Credits 
 
